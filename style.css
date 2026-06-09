@@ -2,3 +2,31 @@
   display: flex;
   justify-content: space-around;
 }
+.almost-white {
+  color: beige;
+}
+
+.blinking-text {
+  /* Smooth blinking effect */
+  animation: blinker 4s ease-in-out infinite;
+}
+
+@keyframes blinker {
+  0%, 90% {
+    opacity: 0;
+  }
+  94% {
+    opacity: 0;
+  }
+  95%, 100% {
+    opacity: 1;
+  }
+}
+
+.option {
+    display: inline-block;
+    padding: 10px;
+    border-radius: 10px ;
+    margin: 10px;
+    background: lightgray;
+}
