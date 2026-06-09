@@ -209,19 +209,35 @@ What is the type of `y`: `Y.X.t`{.option} or `X__.t`{.option}?
   - Shorter is better
   - ...
 
-{pause}
+- **Conclusion 3**: The path should be correct.
 
-## But why is it difficult?
+{pause up}
+## The history of printing paths
 
-{pause}
-
-## So what's your solution?
-
-{pause}
-
-### General idea
+{pause up}
+## What's your solution?
 
 {pause}
+
+{.block}
+[« The correct path is probably somewhere in the file. »]{style=font-size:1.1em;}
+[(Leo, Gérard, Paul-Elliot, ICFP 2027 (Best paper award))]{style=float:right;font-size:0.8em}
+
+{pause}
+
+{style="display:flex"}
+---
+```ocaml
+open Import
+
+module M = Mapper
+
+type t = Z of Zed.t
+
+let x : X.t =
+  List.map M.B.bourglify C.deprecated
+```
+---
 
 ### More details
 

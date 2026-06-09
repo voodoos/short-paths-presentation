@@ -1915,16 +1915,29 @@ end]
 &lt;li&gt;&lt;span&gt;...&lt;/span&gt;&lt;/li&gt;
 &lt;/ul&gt;
 &lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;&lt;span&gt;Conclusion 3&lt;/span&gt;&lt;/strong&gt;&lt;span&gt;: The path should be correct.&lt;/span&gt;&lt;/p&gt;
+&lt;/li&gt;
 &lt;/ul&gt;
+&lt;h2 up-at-unpause pause&gt;&lt;span&gt;The history of printing paths&lt;/span&gt;&lt;/h2&gt;
+&lt;h2 up-at-unpause pause&gt;&lt;span&gt;What's your solution?&lt;/span&gt;&lt;/h2&gt;
 &lt;div pause&gt;&lt;/div&gt;
-&lt;h2&gt;&lt;span&gt;But why is it difficult?&lt;/span&gt;&lt;/h2&gt;
+&lt;p class=&quot;block&quot;&gt;&lt;span style=font-size:1.1em;&gt;&lt;span&gt;« The correct path is probably somewhere in the file. »&lt;/span&gt;&lt;/span&gt;
+&lt;span style=float:right;font-size:0.8em&gt;&lt;span&gt;(Leo, Gérard, Paul-Elliot, ICFP 2027 (Best paper award))&lt;/span&gt;&lt;/span&gt;&lt;/p&gt;
 &lt;div pause&gt;&lt;/div&gt;
-&lt;h2&gt;&lt;span&gt;So what's your solution?&lt;/span&gt;&lt;/h2&gt;
-&lt;div pause&gt;&lt;/div&gt;
-&lt;h3&gt;&lt;span&gt;General idea&lt;/span&gt;&lt;/h3&gt;
-&lt;div pause&gt;&lt;/div&gt;
-&lt;h3&gt;&lt;span&gt;More details&lt;/span&gt;&lt;/h3&gt;
 &lt;/div&gt;
+&lt;div style=&quot;display:flex&quot;&gt;
+&lt;pre&gt;&lt;code class=&quot;language-ocaml&quot;&gt;open Import
+
+module M = Mapper
+
+type t = Z of Zed.t
+
+let x : X.t =
+  List.map M.B.bourglify C.deprecated
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;h3&gt;&lt;span&gt;More details&lt;/span&gt;&lt;/h3&gt;
 &lt;div class=&quot;flex&quot;&gt;
 &lt;div class=&quot;slipshow-rescaler&quot; src=&quot;discourse.md&quot; slip include enter-at-unpause&gt;
 &lt;div class=&quot;slip&quot;&gt;
