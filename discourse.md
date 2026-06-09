@@ -1,8 +1,29 @@
-# The discourse
+# [Phase 2: The discourse]{.very-big}
 
-The discourse is a closure of the set of used path under certain rules.
+{pause}
 
-{.flex}
-> ## `U` the set of used paths
->
-> ## `D` the discourse
+We are only going to see _some_ of the rules.
+
+```ocaml
+(** import.ml *)
+
+type t = Foo of A.B.t | Bar
+```
+
+```ocaml
+let x : Import.t = Bar
+```
+
+{pause}
+
+```ocaml
+open Import
+
+let x = Bar
+```
+
+{pause}
+
+```ocaml
+let x = Import.Bar
+```

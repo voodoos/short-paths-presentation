@@ -5,6 +5,13 @@ css: style.css
 
 # Short path
 
+{.block #slipshow pause}
+**Disclaimer**: This time, **I am not** going to speak about slipshow. It is not going to happen.
+
+{unstatic=slipshow pause}
+
+Demo.
+
 {pause up .carousel-fixed-size carousel #examples}
 ----
 
@@ -85,10 +92,10 @@ module Y = struct
   module X = X
 end
 
-let y = X.A
+let x = X.A
 ```
 
-What is the type of `y`: `X.t`{.option} or `Y.X.t`{.option}?
+What is the type of `x`: `X.t`{.option} or `Y.X.t`{.option}?
 
 ---
 
@@ -101,10 +108,10 @@ module Y = struct
   module X = X
 end
 
-let y = Y.X.A
+let x = Y.X.A
 ```
 
-What is the type of `y`: `X.t`{.option} or `Y.X.t`{.option}?
+What is the type of `x`: `X.t`{.option} or `Y.X.t`{.option}?
 
 ---
 
@@ -117,10 +124,10 @@ end
 
 module X = Y.X
 
-let y = X.A
+let x = X.A
 ```
 
-What is the type of `y`: `X.t`{.option} or `Y.X.t`{.option}?
+What is the type of `x`: `X.t`{.option} or `Y.X.t`{.option}?
 
 ---
 
@@ -133,10 +140,10 @@ end
 
 module X = Y.X
 
-let y = Y.X.A
+let x = Y.X.A
 ```
 
-What is the type of `y`: `X.t`{.option} or `Y.X.t`{.option}?
+What is the type of `x`: `X.t`{.option} or `Y.X.t`{.option}?
 
 ---
 
@@ -149,10 +156,10 @@ module Y = struct
   module X = X__
 end
 
-let y = Y.X.A
+let x = Y.X.A
 ```
 
-What is the type of `y`: `Y.X.t`{.option} or `X__.t`{.option}?
+What is the type of `x`: `Y.X.t`{.option} or `X__.t`{.option}?
 
 ---
 
@@ -225,7 +232,7 @@ What is the type of `y`: `Y.X.t`{.option} or `X__.t`{.option}?
 
 {pause}
 
-{style="display:flex"}
+{style="display:flex" #mapper}
 ---
 ```ocaml
 open Import
@@ -239,12 +246,34 @@ let x : X.t =
 ```
 ---
 
-### More details
+![](d-cloud.draw){#d-cloud}
 
-{.flex}
+{draw=d-cloud}
+
+{draw=d-cloud}
+
+{draw=d-cloud}
+
+{draw=d-cloud}
+
+{draw=d-cloud}
+
+{up="~margin:-60 mapper"}
+
+{pause}
+
+{up}
+{.flex style="margin-top:400px"}
 ---
 
+{slip}
+> # [Phase 1: Collect used path]{.very-big}
+
+{step}
+
 {include slip src="discourse.md"}
+
+{step}
 
 {include slip src="shortening.md"}
 
@@ -252,4 +281,4 @@ let x : X.t =
 
 {pause}
 
-## Okay, can I have a demo?
+## Conclusion

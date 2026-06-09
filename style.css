@@ -30,3 +30,7 @@
     margin: 10px;
     background: lightgray;
 }
+
+.very-big {
+    font-size: 1.8em;
+}
