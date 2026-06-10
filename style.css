@@ -34,3 +34,7 @@
 .very-big {
     font-size: 1.8em;
 }
+
+code {
+    background-color: #f3f3f3;
+}

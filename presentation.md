@@ -266,8 +266,8 @@ let x : X.t =
 {.flex style="margin-top:400px"}
 ---
 
-{slip}
-> # [Phase 1: Collect used path]{.very-big}
+{include slip src="used-paths.md"}
+
 
 {step}
 
