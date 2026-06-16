@@ -225,25 +225,24 @@ What is the type of `x`: `Y.X.t`{.option} or `X__.t`{.option}?
 
 There already exist two implementations of short-paths for OCaml:
 
-{up}
 
-### The compiler implementation
+### One in the compiler
 
 {pause}
 
-- Written by Jacques Garrigue.
-- Perfoms a breadth-first seach in the environment, one level at a time...
+- Initially written by Jacques Garrigue.
+- Performs a breadth-first search in the environment, one level at a time...
 - ... until it finds a suitable candidate.
 - Rather simple, but computationally intensive and often provides unsatisfying results.
 
 {pause}
 
-### The merlin implementation
+### One in merlin
 
 {pause}
 
-- A steroid-ladden upgrade of the one in the compiler.
-- Explores a much larger part of the environement...
+- A steroid-fed upgrade of the one in the compiler.
+- Explores a much larger part of the environment...
 - ...while using subtle heuristics to cut useless branches.
 - It is extremely complex, but gives better results, faster. It was meant to be upstreamed but that never happened.
 - It's one of the main pain points when upgrading Merlin to a new version of the
@@ -251,7 +250,7 @@ There already exist two implementations of short-paths for OCaml:
 
 {pause}
 
-Leo White from Jane Street, who wrote the current implementation in Merlin, (and is probably the only person on Earth to understand how it works,) came up with a new, simpler, design.
+Let's make a third one ! Leo White, who wrote the current implementation in Merlin, (and is probably the only person on Earth to understand how it works,) came up with a new, simpler, design.
 
 
 {pause up}
