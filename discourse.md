@@ -50,6 +50,18 @@ TODO
       and another path `p` in `D` includes `n` within it, then the path obtained by
       substituting the m for `n` in `p` is also in `D`.
 
+Dune's wrapping is a classic provider of aliases:
+
+The module `Foo` in lib `Lib_foo` is compiled as `Lib_foo__Foo`.
+
+And a wrapper module is generated `Lib_foo__` with aliases `module Foo =
+Lib_foo__Foo` and opened when building all the library's modules.
+
+If `Lib_foo` is opened in another module this results in the following
+substitutions:
+
 ```ocaml
-TODO
+Foo -> Lib_foo.Foo
+Foo -> Lib_foo__Foo
 ```
+

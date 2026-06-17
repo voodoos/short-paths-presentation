@@ -4,13 +4,17 @@ During phase 1 and 2 we accumulated a number of paths and substitutions. The res
 
 However, we much approach this carefully to answer as fast as possible. Here is how we currently proceed:
 
-1. First we apply the substitution to paths' prefixes.
+1. First we apply the substitution to paths' prefixes. For example,  applying substitution `Foo -> Lib_foo.Foo` to path `Lib_foo.Foo.t` adds `Foo.t` to the discourse.
 
-2. Then we verse all these paths into a priority queue sorted by their length.
+2. Then we verse all the discourse paths into a priority queue sorted by their length.
 
 3. We treat the priority queue one level at a time. For each path, we canonicalize it in the current environment and store it in a table mapping canonical paths to shorter candidates.
 
-4. At the end of each level, we check if that table now contains a candidate for the path we are trying to shorten. If it does we stop and return the result. If not we go back to step 3, treating the next level.
+```
+Env.normalize_module_path Foo.t -> Lib_foo__Foo.t
+```
+
+4. At the end of each level, we check if that table now contains a candidate for the path we are trying to shorten. By checking each-of-them validity in the current environement. If it does we stop and return the result. If not we go back to step 3, treating the next level.
 
 To validate our work we run Merlin randomly over hundreds of location in Base and compare the output with the previous version of short paths.
 

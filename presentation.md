@@ -314,3 +314,16 @@ let x : X.t =
 {pause}
 
 ## Conclusion
+
+It all about balance:
+
+- `D` should be the smallest possible for good performances
+- But too small a `D` will miss shorter paths.
+- Some tricks like adding paths late, when printing, can help with that since it would delay part of the computations.
+- The canonical paths table is kept between queries and stays valid for the
+  current buffer. Even if it is modified: the env check will simply fail.
+
+Currently we have performances slightly worse than the previous implementation but with many prospects for improvements.
+
+The current implementation is done for oxcaml, but there is interest from the
+compiler maintainers to upstream it.
