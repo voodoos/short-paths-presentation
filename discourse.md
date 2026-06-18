@@ -39,18 +39,26 @@ let paul_elliot_is_an_ai : Import.t = Bar
 {draw=phase-2-d}
 
 {pause up=rule-6-d}
-- **Rule 11**: If a path is in `D` and it includes another module path within it, then that
-      module path is also in `D`.
-
-```ocaml
-TODO
-```
-
-- **Rule 12**: If a module path m in `D` - note `D` not `U` - is a module alias with target `n`
+- **Rule 12**: If a module path `m` in `D` - note `D` not `U` - is a module alias with target `n`
       and another path `p` in `D` includes `n` within it, then the path obtained by
       substituting the m for `n` in `p` is also in `D`.
 
-Dune's wrapping is a classic provider of aliases:
+```ocaml
+(* import.ml *)
+
+module M = N
+```
+
+```ocaml
+open Import
+
+let _ = N.x
+```
+
+{draw=phase-2-d}
+
+{pause down=subststs}
+## Dune's wrapping is a classic provider of aliases:
 
 The module `Foo` in lib `Lib_foo` is compiled as `Lib_foo__Foo`.
 
@@ -60,6 +68,7 @@ Lib_foo__Foo` and opened when building all the library's modules.
 If `Lib_foo` is opened in another module this results in the following
 substitutions:
 
+{#subststs}
 ```ocaml
 Foo -> Lib_foo.Foo
 Foo -> Lib_foo__Foo

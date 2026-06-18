@@ -223,34 +223,36 @@ What is the type of `x`: `Y.X.t`{.option} or `X__.t`{.option}?
 {pause up}
 ## The history of printing paths
 
-There already exist two implementations of short-paths for OCaml:
-
+There already exist two implementations of short-paths for OCaml! {pause}
 
 ### One in the compiler
 
-{pause}
-
 - Initially written by Jacques Garrigue.
-- Performs a breadth-first search in the environment, one level at a time...
+
+- Performs a breadth-first search in the environment, one level at a time... {pause}
+
 - ... until it finds a suitable candidate.
+
 - Rather simple, but computationally intensive and often provides unsatisfying results.
 
 {pause}
 
 ### One in merlin
 
-{pause}
-
 - A steroid-fed upgrade of the one in the compiler.
-- Explores a much larger part of the environment...
-- ...while using subtle heuristics to cut useless branches.
-- It is extremely complex, but gives better results, faster. It was meant to be upstreamed but that never happened.
+
+- Explores a much larger part of the environment... {pause}
+
+- ...while using subtle heuristics to cut useless branches. {pause}
+
+- It is extremely complex, but gives better results, faster. It was meant to be upstreamed but that never happened. {pause}
+
 - It's one of the main pain points when upgrading Merlin to a new version of the
   typer.
 
 {pause}
 
-Let's make a third one ! Leo White, who wrote the current implementation in Merlin, (and is probably the only person on Earth to understand how it works,) came up with a new, simpler, design.
+Let's make a third one ! Leo White, who wrote the current implementation in Merlin came up with a new, "simpler", design.
 
 
 {pause up}
@@ -312,6 +314,59 @@ let x : X.t =
 ---
 
 {pause}
+
+## Implementation
+
+
+{pause}
+
+During phase 1 and 2 we accumulated a number of paths and substitutions. The rest of the job is fairly straightforward: we apply the substitutions to close the set of paths and then search it for the best one.
+
+However, we much approach this carefully to answer as fast as possible. Here is how we currently proceed:
+
+1. First we apply the substitution to paths' prefixes. For example,  applying substitution `Foo -> Lib_foo.Foo` to path `Lib_foo.Foo.t` adds `Foo.t` to the discourse.
+
+2. Then we verse all the discourse paths into a priority queue sorted by their length.
+
+3. We treat the priority queue one level at a time. For each path, we canonicalize it in the current environment and store it in a table mapping canonical paths to shorter candidates.
+
+```
+Env.normalize_module_path Foo.t -> Lib_foo__Foo.t
+```
+
+4. At the end of each level, we check if that table now contains a candidate for the path we are trying to shorten. By checking each-of-them validity in the current environement. If it does we stop and return the result. If not we go back to step 3, treating the next level.
+
+To validate our work we run Merlin randomly over hundreds of location in Base and compare the output with the previous version of short paths.
+
+{ up }
+```diff
+-  val t_of_sexp : Sexp_type.Sexp.t -> t
+-  val sexp_of_t : t -> Sexp_type.Sexp.t
+-  val sexp_of_t__stack : t @ local -> Sexp_type.Sexp.t @ local
++  val t_of_sexp : Sexp.t -> t
++  val sexp_of_t : t -> Sexp.t
++  val sexp_of_t__stack : t @ local -> Sexp.t @ local
+
+-  val hash_fold_t :
+-    Base_internalhash_types.state -> 'a t -> Base_internalhash_types.state @@
+-    portable
++  val hash_fold_t : Hash.state -> 'a t -> Hash.state @@ portable
+
+-    functor (T : Base__T.T1__any) ->
++    functor (T : T1__any) ->
+
+-    functor (T : Base__T.T2__any__any) ->
++    functor (T : T2__any__any) ->
+
+-    functor (T : Base__T.T3__any__any__any) ->
++    functor (T : T3__any__any__any) ->
+
+-    functor (T : Base__T.T4__any__any__any__any) ->
++    functor (T : T4__any__any__any__any) ->
+```
+
+And many__any__any__any__any others!
+
 
 ## Conclusion
 
