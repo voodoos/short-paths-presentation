@@ -8,7 +8,7 @@
 
 .blinking-text {
   /* Smooth blinking effect */
-  animation: blinker 4s ease-in-out infinite;
+  animation: blinker 10s ease-in-out infinite;
 }
 
 @keyframes blinker {
@@ -37,4 +37,12 @@
 
 code {
     background-color: #f3f3f3;
+}
+
+.not-slipshow {
+    background: black;
+}
+
+.poll-answered {
+    background: blue;
 }

@@ -3,16 +3,38 @@ dimension: 16:9
 css: style.css
 ---
 
+<!-- {#link} -->
+<!-- http://choum.net:61119 -->
+
+<!-- {pause} -->
+
+<!-- Could you connect? -->
+
+<!-- {carousel poll-element #could_connect} -->
+<!-- > -->
+<!-- > Yes, definitely! [0]{.poll-result} -->
+<!-- > -->
+<!-- > --- -->
+<!-- > -->
+<!-- > Looks like I could! [0]{.poll-result} -->
+<!-- > -->
+
+
+
+
 # Short path
 
 {.block #slipshow pause}
-**Disclaimer**: This time, **I am not** going to speak about slipshow. It is not going to happen.
+**Disclaimer**: This time, **I am not** going to speak about slipshow{.not-slipshow}. It is not going to happen.
 
 {unstatic=slipshow pause}
 
 
 <!-- TODO Do we really need a demo ? I feel like the subject is not very demo worthy, apart from showing maybe one bad type happening ? -->
 Demo.
+
+{pause .block title="Question"}
+How to print (fully-qualified) paths?
 
 {pause up .carousel-fixed-size carousel #examples}
 ----
@@ -204,9 +226,9 @@ What is the type of `x`: `Y.X.t`{.option} or `X__.t`{.option}?
 >
 > - **Takeaway 3**: We want to avoid paths including hidden modules.  {#tkw4}
 >
-> - **Takeaway 4**: We may have combinatorial explosion in the candidates. (Ulysse tu as un exemple de ça ?)  {#tkw5}
+> - **Takeaway 4**: The environment may be big.  {#tkw5}
 >
-> - **Takeaway 5**: Base is a beast. [Completely fucked up]{.blinking-text}
+> - **Takeaway 5**: Base is a beast. [Very annoying library]{.blinking-text}
 
 {pause up=takeaways}
 
@@ -218,7 +240,7 @@ What is the type of `x`: `Y.X.t`{.option} or `X__.t`{.option}?
   - Shorter is better
   - ...
 
-- **Conclusion 3**: The path should be correct.
+- **Conclusion 2**: The path should be correct.
 
 {pause up}
 ## The history of printing paths
@@ -313,32 +335,29 @@ let x : X.t =
 
 ---
 
-{pause}
+{step}
 
+{pause up}
 ## Implementation
 
-
 {pause}
 
-During phase 1 and 2 we accumulated a number of paths and substitutions. The rest of the job is fairly straightforward: we apply the substitutions to close the set of paths and then search it for the best one.
+{.theorem}
+It's more complicated than this.
 
-However, we much approach this carefully to answer as fast as possible. Here is how we currently proceed:
+1. We want laziness for `D`: Often we don't need to print a path.
 
-1. First we apply the substitution to paths' prefixes. For example,  applying substitution `Foo -> Lib_foo.Foo` to path `Lib_foo.Foo.t` adds `Foo.t` to the discourse.
+1. We store the substitutions independently while building `D`.
 
-2. Then we verse all the discourse paths into a priority queue sorted by their length.
+2. We put candidates in a priority queue to avoid checking them all.
 
-3. We treat the priority queue one level at a time. For each path, we canonicalize it in the current environment and store it in a table mapping canonical paths to shorter candidates.
+2. Path equality is not trivial. We maintain a map from path to "canonical paths".
 
-```
-Env.normalize_module_path Foo.t -> Lib_foo__Foo.t
-```
-
-4. At the end of each level, we check if that table now contains a candidate for the path we are trying to shorten. By checking each-of-them validity in the current environement. If it does we stop and return the result. If not we go back to step 3, treating the next level.
+{pause}
 
 To validate our work we run Merlin randomly over hundreds of location in Base and compare the output with the previous version of short paths.
 
-{ up }
+{ up=~margin:-50.5 }
 ```diff
 -  val t_of_sexp : Sexp_type.Sexp.t -> t
 -  val sexp_of_t : t -> Sexp_type.Sexp.t
@@ -368,13 +387,17 @@ To validate our work we run Merlin randomly over hundreds of location in Base an
 And many__any__any__any__any others!
 
 
+{pause up}
 ## Conclusion
 
 It all about balance:
 
 - `D` should be the smallest possible for good performances
+
 - But too small a `D` will miss shorter paths.
+
 - Some tricks like adding paths late, when printing, can help with that since it would delay part of the computations.
+
 - The canonical paths table is kept between queries and stays valid for the
   current buffer. Even if it is modified: the env check will simply fail.
 
@@ -382,3 +405,9 @@ Currently we have performances slightly worse than the previous implementation b
 
 The current implementation is done for oxcaml, but there is interest from the
 compiler maintainers to upstream it.
+
+
+{pause up draw=qany}
+## Conclusion'
+
+![](questions-any.draw){#qany}
