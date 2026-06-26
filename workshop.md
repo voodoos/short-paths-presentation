@@ -12,8 +12,8 @@ geometry: margin=1in
 ### What is short-paths?
 
 The OCaml type system, and its module system in particular, is eminently
-malleable. One of the consequences of their flexibility is that the same
-entities can often be referred to by multiple paths in the same environment.
+malleable. One of the consequences of this flexibility is that the same entities
+can often be referred to by multiple paths in the same environment.
 
 For example, if you consider the following snippet:
 
@@ -48,7 +48,13 @@ It's not obvious how to define "best path", but the cost function should at leas
 
 Short-paths is a feature that is surprisingly tricky to get right, that is, to provide a reasonable answer in a reasonable amount of time. In fact there already exist two implementations in the ecosystem.
 
-One lives in the compiler itself and is used when printing error messages with the option `-short-paths` (enabled by default by Dune while in dev mode). It performs a lazy breadth-first search in the environment, one level at a time, until it finds an adequate candidate. It can miss good candidates by stopping too early (TODO example ?) and is rather costly. This not a problem for compiler output, where only a few types are printed in an error, but it is not acceptable for real-time applications such as Merlin.
+One lives in the compiler itself and is used when printing error messages with
+the option `-short-paths` (enabled by default by Dune while in dev mode). It
+performs a lazy breadth-first search in the environment, one level at a time,
+until it finds an adequate candidate. It can miss good candidates by stopping
+too early and is rather costly. This is not a problem for compiler output, where
+only a few types are printed in an error, but it is not acceptable for real-time
+applications such as Merlin.
 
 For these reasons, there is a different implementation of short-paths in Merlin.
 It is an extremely complex machine in comparison with the compiler one, but it
@@ -122,27 +128,38 @@ paths used in that description are in $\mathcal{D}$. (eg. if
 
 ### The shortening algorithm
 
-Even if this used-first way of filling $\mathcal{D}$ should result in a smaller search space than the trivial implementations, some care must be taken to actually compute the shortest path in the most economical way possible. Here is how we proceed:
+Even if this used-first way of filling $\mathcal{D}$ should result in a smaller
+search space than the trivial implementations, some care must be taken to
+actually compute the shortest path in the most economical way possible. Here is
+how we proceed:
 
-1. When asked to shorten a path $P$ we apply to it the substitutions we collected as part of rule $\mathcal{D}_{12}$ and add all these paths to $\mathcal{D}$.
+1. When asked to shorten a path $P$ we apply to it the substitutions we
+   collected as part of rule $\mathcal{D}_{12}$ and add all these paths to
+   $\mathcal{D}$.
 
-2. We verse all the paths of $\mathcal{D}$ in a priority-list sorted by their cost (length + double underscore malus)
+2. We place all the paths of $\mathcal{D}$ in a priority-list sorted by their
+   cost (length + double underscore malus)
 
-3. For every path in the first level of the list (which contains the shortests names) we check if it is a valid name in the current environment. If it is we canonicalize that path and add it to a table $T$ mapping canonicalized paths to a sorted list of names.
+3. For every path in the first level of the list (which contains the shortest
+   names) we check if it is a valid name in the current environment. If it is we
+   canonicalize that path and add it to a table $T$ mapping canonicalized paths
+   to a sorted list of names.
 
-4. If the table $T$ contains an entry for the canonical form of $P$ that is valid in the current environment we have our answer. If not we loop back to step 3.
+4. If the table $T$ contains an entry for the canonical form of $P$ that is
+   valid in the current environment we have our answer. If not we loop back to
+   step 3.
 
 Several optimisations are made in the current implementation to improve
 performance when successively shortening paths in the same buffer or when
 printing large module signatures (our test-suite on base prints signatures of
 more than 14M characters). Some of these tricks involve reusing the table $T$
-and only retry invalid entries in the priority list when it makes sense.
+and only retrying invalid entries in the priority list when it makes sense.
 
 ## Results
 
 We are currently working on a prototype implementation based on oxcaml. We get
 much better results when randomly printing types from `Base` compared to the
-current implementation in Merlin, which almost all occurrences of
+current implementation in Merlin, with almost all occurrences of
 double-underscored paths avoided.
 
 Performances are slightly worse than the existing implementation in Merlin
@@ -151,4 +168,4 @@ algorithm in the end.
 
 Because this new algorithm requires storing discourses in the AST of types,
 changes to the upstream compiler will be required if we want to bring these
-improvements to every OCaml programmers.
+improvements to every OCaml programmer.
