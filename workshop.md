@@ -1,4 +1,11 @@
-# A new implementation of Short-paths
+---
+title: A new implementation of Short-paths
+author:
+  - Paul-Elliot Anglès d'Auriac (Tarides)
+  - Ulysse Gérard (Tarides)
+  - Leo White (Jane Street)
+geometry: margin=1in
+---
 
 ## Introduction
 
