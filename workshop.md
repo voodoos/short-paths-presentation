@@ -4,7 +4,7 @@ author:
   - Paul-Elliot Anglès d'Auriac (Tarides)
   - Ulysse Gérard (Tarides)
   - Leo White (Jane Street)
-geometry: margin=1in
+geometry: margin=1.25in
 ---
 
 ## Introduction
