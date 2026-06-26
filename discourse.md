@@ -50,7 +50,7 @@ module M = N
 ```
 
 ```ocaml
-open Import
+include Import
 
 let _ = N.x
 ```

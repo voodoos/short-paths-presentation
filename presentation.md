@@ -22,16 +22,56 @@ css: style.css
 
 
 
-# Short path
+# Short__Paths
 
 {.block #slipshow pause}
 **Disclaimer**: This time, **I am not** going to speak about slipshow{.not-slipshow}. It is not going to happen.
 
 {unstatic=slipshow pause}
 
+Demo.
+
+{#tto-remove}
+> Could you connect to `http://choum.net:61119` ?
+>
+> {carousel poll-element #could_connect}
+> >
+> > Yes, definitely! [0]{.poll-result}
+> >
+> > ---
+> >
+> > Looks like I could! [0]{.poll-result}
+
+{exec}
+```slip-script
+slip.setClass(document.querySelector("#could_connect"), "revealed-resuslts", true)
+```
+
+{unstatic=tto-remove}
+
+{pause}
+
+{#tto-remove2}
+> Do you know `ocaml-eglot`?
+>
+> {carousel poll-element #could_connectaa}
+> >
+> > Yes [0]{.poll-result}
+> >
+> > ---
+> >
+> > Yes [0]{.poll-result}
+
+{exec}
+```slip-script
+slip.setClass(document.querySelector("#could_connectaa"), "revealed-resuslts", true)
+```
+
+{unstatic=tto-remove2}
+
 
 <!-- TODO Do we really need a demo ? I feel like the subject is not very demo worthy, apart from showing maybe one bad type happening ? -->
-Demo.
+
 
 {pause .block title="Question"}
 How to print (fully-qualified) paths?
@@ -47,6 +87,22 @@ let x = "How was the party yesterday?"
 
 What is the type of `x`: `t`{.option} or `string`{.option}?
 
+{carousel poll-element #could_connect2}
+>
+> `t` [0]{.poll-result}
+>
+> ---
+>
+> `string` [0]{.poll-result}
+>
+
+
+{exec}
+```slip-script
+slip.setClass(document.querySelector("#could_connect2"), "revealed-resuslts", true)
+```
+
+
 ---
 
 ```ocaml
@@ -54,10 +110,26 @@ module X = struct
   type t = string
 end
 
-let x = "I'm so tired!"
+let x = "I'm tired!"
 ```
 
 What is the type of `x`: `X.t`{.option} or `string`{.option}?
+
+<!-- {carousel poll-element #could_connect3} -->
+<!-- > -->
+<!-- > `X.t` [0]{.poll-result} -->
+<!-- > -->
+<!-- > --- -->
+<!-- > -->
+<!-- > `string` [0]{.poll-result} -->
+<!-- > -->
+
+
+<!-- {exec} -->
+<!-- ```slip-script -->
+<!-- slip.setClass(document.querySelector("#could_connect3"), "revealed-resuslts", true) -->
+<!-- ``` -->
+
 
 ---
 
@@ -72,6 +144,27 @@ let x = "Me too"
 ```
 
 What is the type of `x`: `t`{.option} or `string`{.option} or `X.t`{.option}?
+
+<!-- {carousel poll-element #could_connect4} -->
+<!-- > -->
+<!-- > `t` [0]{.poll-result} -->
+<!-- > -->
+<!-- > --- -->
+<!-- > -->
+<!-- > `string` [0]{.poll-result} -->
+<!-- > -->
+<!-- > --- -->
+<!-- > -->
+<!-- > `X.t` [0]{.poll-result} -->
+<!-- > -->
+
+
+<!-- {exec} -->
+<!-- ```slip-script -->
+<!-- slip.setClass(document.querySelector("#could_connect4"), "revealed-resuslts", true) -->
+<!-- ``` -->
+
+
 
 ---
 

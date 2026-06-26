@@ -44,5 +44,23 @@ code {
 }
 
 .poll-answered {
-    background: blue;
+    background: lightgrey;
+}
+
+.poll-result {
+    opacity: 0;
+}
+
+.revealed-resuslts .poll-result {
+    opacity: 1;
+}
+
+.poll_element_children:hover {
+    background-color: grey;
+    cursor: pointer;
+}
+
+.poll_element {
+    display: flex;
+    justify-content: space-around;
 }
