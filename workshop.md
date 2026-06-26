@@ -36,7 +36,7 @@ The conventional encapsulation of libraries with wrapper modules, named with
 double underscores `__`, is also a common source of alternative paths that we should avoid showing to the user.
 
 The mechanism choosing the best type is what we call "short-paths". It is
-involved each time a type is printed; this happens for example when the compiler
+involved each time a path is printed; this happens for example when the compiler
 prints an error, or when Merlin/OCaml-LSP prints the type of an expression as a
 result of a user query.
 
@@ -157,7 +157,7 @@ and only retrying invalid entries in the priority list when it makes sense.
 
 ## Results
 
-We are currently working on a prototype implementation based on oxcaml. We get
+We are currently working on a prototype implementation based on oxcaml. It already provides
 much better results when randomly printing types from `Base` compared to the
 current implementation in Merlin, with almost all occurrences of
 double-underscored paths avoided.
