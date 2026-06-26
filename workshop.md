@@ -162,8 +162,8 @@ much better results when randomly printing types from `Base` compared to the
 current implementation in Merlin, with almost all occurrences of
 double-underscored paths avoided.
 
-Performances are slightly worse than the existing implementation in Merlin
-(which itself is quite fast), but we expect to be able to have a faster
+Performances are currently slightly worse than the existing implementation in
+Merlin (which itself is quite fast), but we expect to be able to have a faster
 algorithm in the end.
 
 Because this new algorithm requires storing discourses in the AST of types,
