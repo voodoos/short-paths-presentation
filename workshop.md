@@ -31,16 +31,20 @@ let err = Unix.EMLINK;;
 
 The type of `err`, at the location of its definition, could be referred to as
 `Unix.error`, `X.t`, `Y.t`, or `t`. And this set of candidates can grow quickly
-in large libraries, especially when they rely heavily on features such as `include`.
-The conventional encapsulation of libraries with wrapper modules, named with
-double underscores `__`, is also a common source of alternative paths that we should avoid showing to the user.
+in large libraries, especially when they rely heavily on features such as
+`include`. The conventional encapsulation of libraries with wrapper modules,
+named with double underscores `__`, is also a common source of alternative
+paths, and these are expected to remain hidden from the user.
 
 The mechanism choosing the best type is what we call "short-paths". It is
 involved each time a path is printed; this happens for example when the compiler
 prints an error, or when Merlin/OCaml-LSP prints the type of an expression as a
 result of a user query.
 
-It's not obvious how to define "best path", but the cost function should at least: 1. consider the number of components (separated by dots), prioritizing paths with fewer components, and 2. depreciate components containing a double underscore.
+It is not obvious how to define "best path", but the cost function should at
+least: 1. consider the number of components (separated by dots), prioritizing
+paths with fewer components, and 2. strongly depreciate components containing a
+double underscore.
 
 (Many other factors could be taken into account to break ties: favor candidates appearing close in the buffer, favor predefined types, etc.)
 
@@ -67,16 +71,16 @@ Both have their flaws. This led co-author Leo White, the creator of the current 
 
 Remark on terminology: in the compiler the term "path" is an internal notion
 that designates a valid path in a given typing environment. Names, or "paths"
-written by the users in the sources are called "longidents" in the typer. In
-this presentation we liberally use the word "path" to name what in the compiler
-codebase is actually a "longident".
+written by the users in the sources are actually called "longidents" in the
+compiler. In this presentation we liberally use the word "path" to name what in
+the compiler codebase is actually a "longident".
 
 ## The new design
 
 We introduce a notion of domain of discourse $\mathcal{D}$ which is the set of
 paths that should be considered when shortening. One fundamental difference in
 the new design is that some preprocessing is done during typing and saved as
-part of the type signature in the `cmi` files: each (module, type, value, etc)
+part of the type signature in the `cmi` files: each type, (module, value, etc)
 declaration is enriched with the set of paths that should be added to the
 discourse if it is _used_.
 
@@ -141,9 +145,9 @@ how we proceed:
    cost (length + double underscore malus)
 
 3. For every path in the first level of the list (which contains the shortest
-   names) we check if it is a valid name in the current environment. If it is we
-   canonicalize that path and add it to a table $T$ mapping canonicalized paths
-   to a sorted list of names.
+   names) we check if it is a valid name in the current environment for its
+   initial definition. If it is we canonicalize that path and add it to a table
+   $T$ mapping canonicalized paths to a sorted list of names.
 
 4. If the table $T$ contains an entry for the canonical form of $P$ that is
    valid in the current environment we have our answer. If not we loop back to
