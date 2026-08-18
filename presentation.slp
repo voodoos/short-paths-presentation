@@ -76,6 +76,9 @@ What do you think should be the type of `x`: `t`{.option} or `string`{.option}?
 slip.setClass(document.querySelector("#could_connect2"), "revealed-resuslts", true)
 ```
 
+{pause=takeaways}
+
+{change-page='examples'}
 
 ---
 
@@ -87,7 +90,25 @@ end
 let x = "Ocaml Workshop"
 ```
 
-What is the type of `x`: `X.t`{.option} or `string`{.option}?
+What should be the type of `x`?
+
+{carousel poll-element #could_connect3}
+>
+> `X.t` [0]{.poll-result}
+>
+> ---
+>
+> `string` [0]{.poll-result}
+>
+
+{exec}
+```slip-script
+slip.setClass(document.querySelector("#could_connect3"), "revealed-resuslts", true)
+```
+
+
+{change-page='examples'}
+
 
 <!-- {carousel poll-element #could_connect3} -->
 <!-- > -->
@@ -119,26 +140,7 @@ let x = "Ocaml Workshop"
 
 What is the type of `x`: `t`{.option} or `string`{.option} or `X.t`{.option}?
 
-<!-- {carousel poll-element #could_connect4} -->
-<!-- > -->
-<!-- > `t` [0]{.poll-result} -->
-<!-- > -->
-<!-- > --- -->
-<!-- > -->
-<!-- > `string` [0]{.poll-result} -->
-<!-- > -->
-<!-- > --- -->
-<!-- > -->
-<!-- > `X.t` [0]{.poll-result} -->
-<!-- > -->
-
-
-<!-- {exec} -->
-<!-- ```slip-script -->
-<!-- slip.setClass(document.querySelector("#could_connect4"), "revealed-resuslts", true) -->
-<!-- ``` -->
-
-
+{change-page='examples'}
 
 ---
 
@@ -152,6 +154,8 @@ let x = "Ocaml Workshop"
 
 What is the type of `x`: `string`{.option} or `X.t`{.option}?
 
+{change-page='examples'}
+
 ---
 
 ```ocaml
@@ -161,6 +165,8 @@ let x = "Ocaml Workshop"
 ```
 
 What is the type of `x`: `string`{.option} or `t`{.option} or `X.t`{.option}?
+
+{change-page='examples'}
 
 ---
 
@@ -172,6 +178,10 @@ let x = "Ocaml Workshop"
 
 What is the type of `x`: `string`{.option} or `X.t`{.option}?
 
+{pause=tkw1}
+
+{change-page='examples'}
+
 ---
 
 ```ocaml
@@ -187,6 +197,8 @@ let x = X.A
 ```
 
 What is the type of `x`: `X.t`{.option} or `Y.X.t`{.option}?
+
+{change-page='examples'}
 
 ---
 
@@ -204,6 +216,8 @@ let x = Y.X.A
 
 What is the type of `x`: `X.t`{.option} or `Y.X.t`{.option}?
 
+{change-page='examples'}
+
 ---
 
 ```ocaml
@@ -220,6 +234,8 @@ let x = X.A
 
 What is the type of `x`: `X.t`{.option} or `Y.X.t`{.option}?
 
+{change-page='examples'}
+
 ---
 
 ```ocaml
@@ -235,6 +251,10 @@ let x = Y.X.A
 ```
 
 What is the type of `x`: `X.t`{.option} or `Y.X.t`{.option}?
+
+{pause=tkw2}
+
+{change-page='examples'}
 
 ---
 
@@ -252,37 +272,25 @@ let x = Y.X.A
 
 What is the type of `x`: `Y.X.t`{.option} or `X__.t`{.option}?
 
----
-
-{include src=base-is-a-beast.slp #beast .unstatic}
-
-----
-
-{pause=takeaways}
-
-{change-page='examples'}
-
-{change-page='~n:"2-5" examples'}
-
-{pause=tkw1}
-
-{change-page='~n:"6-9" examples'}
-
-{pause=tkw2}
-
-{change-page='examples'}
-
 {pause=tkw3}
 
 {pause=tkw4}
 
 {change-page='examples' static=beast}
 
+---
+
+{include src=base-is-a-beast.slp #beast .unstatic}
+
 {focus=beast}
 
 {unfocus down=takeaways}
 
 {pause=tkw5}
+
+----
+
+
 
 {.block #takeaways}
 > - **Takeaway 0**: Can't be always good. {#tkw1}
