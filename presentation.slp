@@ -24,14 +24,9 @@ css: style.css
 
 # Short__Paths
 
-{.block #slipshow pause}
-**Disclaimer**: This time, **I am not** going to speak about slipshow{.not-slipshow}. It is not going to happen.
-
-{unstatic=slipshow pause}
-
 Demo.
 
-{#tto-remove}
+{#tto-remove pause}
 > Could you connect to `http://choum.net:61119` ?
 >
 > {carousel poll-element #could_connect}
@@ -47,33 +42,12 @@ Demo.
 slip.setClass(document.querySelector("#could_connect"), "revealed-resuslts", true)
 ```
 
-{unstatic=tto-remove}
-
-{pause}
-
-{#tto-remove2}
-> Do you know `ocaml-eglot`?
->
-> {carousel poll-element #could_connectaa}
-> >
-> > Yes [0]{.poll-result}
-> >
-> > ---
-> >
-> > Yes [0]{.poll-result}
-
-{exec}
-```slip-script
-slip.setClass(document.querySelector("#could_connectaa"), "revealed-resuslts", true)
-```
-
-{unstatic=tto-remove2}
-
+{unstatic=tto-remove pause}
 
 <!-- TODO Do we really need a demo ? I feel like the subject is not very demo worthy, apart from showing maybe one bad type happening ? -->
 
 
-{pause .block title="Question"}
+{.block title="Question"}
 How to print (fully-qualified) paths?
 
 {pause up .carousel-fixed-size carousel #examples}
@@ -82,10 +56,10 @@ How to print (fully-qualified) paths?
 ```ocaml
 type t = string
 
-let x = "How was the party yesterday?"
+let x = "Ocaml Workshop"
 ```
 
-What is the type of `x`: `t`{.option} or `string`{.option}?
+What do you think should be the type of `x`: `t`{.option} or `string`{.option}?
 
 {carousel poll-element #could_connect2}
 >
@@ -110,7 +84,7 @@ module X = struct
   type t = string
 end
 
-let x = "I'm tired!"
+let x = "Ocaml Workshop"
 ```
 
 What is the type of `x`: `X.t`{.option} or `string`{.option}?
@@ -140,7 +114,7 @@ end
 
 open X
 
-let x = "Me too"
+let x = "Ocaml Workshop"
 ```
 
 What is the type of `x`: `t`{.option} or `string`{.option} or `X.t`{.option}?
@@ -173,7 +147,7 @@ module X = struct
   type t = string
 end
 
-let x = "I hope this talk is not too long"
+let x = "Ocaml Workshop"
 ```
 
 What is the type of `x`: `string`{.option} or `X.t`{.option}?
@@ -183,7 +157,7 @@ What is the type of `x`: `string`{.option} or `X.t`{.option}?
 ```ocaml
 open X (* Defines type [t = string] *)
 
-let x = "I can't make sense of what the speaker says..."
+let x = "Ocaml Workshop"
 ```
 
 What is the type of `x`: `string`{.option} or `t`{.option} or `X.t`{.option}?
@@ -193,7 +167,7 @@ What is the type of `x`: `string`{.option} or `t`{.option} or `X.t`{.option}?
 ```ocaml
 (* X is in scope and defines [type t = string] *)
 
-let x = "I'm only able to read the strings"
+let x = "Ocaml Workshop"
 ```
 
 What is the type of `x`: `string`{.option} or `X.t`{.option}?
@@ -321,7 +295,7 @@ What is the type of `x`: `Y.X.t`{.option} or `X__.t`{.option}?
 >
 > - **Takeaway 4**: The environment may be big.  {#tkw5}
 >
-> - **Takeaway 5**: Base is a beast. [Very annoying library]{.blinking-text}
+> - **Takeaway 5**: Codebases can be complex.
 
 {pause up=takeaways}
 
@@ -377,7 +351,7 @@ Let's make a third one ! Leo White, who wrote the current implementation in Merl
 
 {.block}
 [« The correct path is probably somewhere in the file. »]{style=font-size:1.1em;}
-[(Leo, Gérard, Paul-Elliot, ICFP 2027 (Best paper award))]{style=float:right;font-size:0.8em}
+[(Leo, Gérard)]{style=float:right;font-size:0.8em}
 
 {pause}
 
