@@ -280,7 +280,7 @@ What is the type of `x`: `Y.X.t`{.option} or `X__.t`{.option}?
 
 ---
 
-{include src=base-is-a-beast.md #beast .unstatic}
+{include src=base-is-a-beast.slp #beast .unstatic}
 
 ----
 
@@ -415,16 +415,16 @@ let x : X.t =
 {.flex style="margin-top:400px"}
 ---
 
-{include slip src="used-paths.md"}
+{include slip src="used-paths.slp"}
 
 
 {step}
 
-{include slip src="discourse.md"}
+{include slip src="discourse.slp"}
 
 {step}
 
-{include slip src="shortening.md"}
+{include slip src="shortening.slp"}
 
 ---
 
