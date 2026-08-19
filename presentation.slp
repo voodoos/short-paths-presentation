@@ -48,7 +48,7 @@ slip.setClass(document.querySelector("#could_connect"), "revealed-resuslts", tru
 
 
 {.block title="Question"}
-How to print an OCaml paths (fully-qualified), using a "Longident"?
+How to print OCaml paths (internal and fully-qualified), using the best possible name (aka "Longident") ?
 
 {pause up .carousel-fixed-size carousel #examples}
 ----
@@ -289,7 +289,7 @@ let x = Def.X.A
 ```
 {style="padding-left:30px"}
 ---
-- `main.ml` defines a type inside a submodule {pause}
+- `def.ml` defines a type inside a submodule {pause}
 
 - `aliaser.ml` aliases it without submodule {pause}
 
@@ -334,7 +334,7 @@ There already exist two implementations of short-paths for OCaml! {pause}
 
 - ... until it finds a suitable candidate.
 
-- Rather simple, but computationally intensive and often provides unsatisfying results.
+- Rather simple, but computationally intensive and sometimes provides unsatisfying results.
 
 {pause}
 
@@ -363,9 +363,8 @@ Let's make a third one ! Leo White, who wrote the current implementation in Merl
 
 {pause}
 
-{.block}
+{.block style=text-align:center}
 [« The correct path is probably somewhere in the file. »]{style=font-size:1.1em;}
-[(Leo, Gérard)]{style=float:right;font-size:0.8em}
 
 {pause}
 
@@ -477,7 +476,7 @@ It all about balance:
 
 - But too small a `D` will miss shorter paths.
 
-- Some tricks like adding paths late, when printing, can help with that since it would delay part of the computations.
+- Some tricks like adding paths late, when printing, can help with that since it delays part of the computations.
 
 - The canonical paths table is kept between queries and stays valid for the
   current buffer. Even if it is modified: the env check will simply fail.
