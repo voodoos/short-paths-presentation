@@ -609,5 +609,22 @@ module type Indexed_container = sig
 end]
 ```
 
-How many characters to display the type at position `213:66`? `713`{.option} or `6568787`{.option} or `14380470`{.option}?
+How many characters to display the type at position `213:66`?
 
+{carousel poll-element #could_connect13}
+>
+> `713` [0]{.poll-result}
+>
+> ---
+>
+> `6568787` [0]{.poll-result}
+>
+> ---
+>
+> `14380470` [0]{.poll-result}
+>
+
+{exec}
+```slip-script
+slip.setClass(document.querySelector("#could_connect13"), "revealed-resuslts", true)
+```

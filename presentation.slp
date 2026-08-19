@@ -59,7 +59,7 @@ type t = string
 let x = "Ocaml Workshop"
 ```
 
-What do you think should be the type of `x`: `t`{.option} or `string`{.option}?
+What should the type of `x` be printed: `t`{.option} or `string`{.option}?
 
 {carousel poll-element #could_connect2}
 >
@@ -90,7 +90,7 @@ end
 let x = "Ocaml Workshop"
 ```
 
-What should be the type of `x`?
+How should the type of `x` be printed?
 
 {carousel poll-element #could_connect3}
 >
@@ -138,7 +138,27 @@ open X
 let x = "Ocaml Workshop"
 ```
 
-What is the type of `x`: `t`{.option} or `string`{.option} or `X.t`{.option}?
+How should the type of `x` be printed?
+
+{carousel poll-element #could_connect4}
+>
+> `t` [0]{.poll-result}
+>
+> ---
+>
+> `string` [0]{.poll-result}
+>
+> ---
+>
+> `X.t` [0]{.poll-result}
+>
+
+{exec}
+```slip-script
+slip.setClass(document.querySelector("#could_connect4"), "revealed-resuslts", true)
+```
+
+
 
 {change-page='examples'}
 
@@ -152,7 +172,21 @@ end
 let x = "Ocaml Workshop"
 ```
 
-What is the type of `x`: `string`{.option} or `X.t`{.option}?
+How should the type of `x` be printed?
+
+{carousel poll-element #could_connect5}
+>
+> `X.t` [0]{.poll-result}
+>
+> ---
+>
+> `string` [0]{.poll-result}
+>
+
+{exec}
+```slip-script
+slip.setClass(document.querySelector("#could_connect5"), "revealed-resuslts", true)
+```
 
 {change-page='examples'}
 
@@ -164,7 +198,25 @@ open X (* Defines type [t = string] *)
 let x = "Ocaml Workshop"
 ```
 
-What is the type of `x`: `string`{.option} or `t`{.option} or `X.t`{.option}?
+How should the type of `x` be printed?
+
+{carousel poll-element #could_connect6}
+>
+> `X.t` [0]{.poll-result}
+>
+> ---
+>
+> `string` [0]{.poll-result}
+>
+> ---
+>
+> `t` [0]{.poll-result}
+>
+
+{exec}
+```slip-script
+slip.setClass(document.querySelector("#could_connect6"), "revealed-resuslts", true)
+```
 
 {change-page='examples'}
 
@@ -176,7 +228,21 @@ What is the type of `x`: `string`{.option} or `t`{.option} or `X.t`{.option}?
 let x = "Ocaml Workshop"
 ```
 
-What is the type of `x`: `string`{.option} or `X.t`{.option}?
+How should the type of `x` be printed?
+
+{carousel poll-element #could_connect7}
+>
+> `X.t` [0]{.poll-result}
+>
+> ---
+>
+> `string` [0]{.poll-result}
+>
+
+{exec}
+```slip-script
+slip.setClass(document.querySelector("#could_connect7"), "revealed-resuslts", true)
+```
 
 {pause=tkw1}
 
@@ -196,7 +262,21 @@ end
 let x = X.A
 ```
 
-What is the type of `x`: `X.t`{.option} or `Y.X.t`{.option}?
+How should the type of `x` be printed?
+
+{carousel poll-element #could_connect8}
+>
+> `X.t` [0]{.poll-result}
+>
+> ---
+>
+> `Y.X.t` [0]{.poll-result}
+>
+
+{exec}
+```slip-script
+slip.setClass(document.querySelector("#could_connect8"), "revealed-resuslts", true)
+```
 
 {change-page='examples'}
 
@@ -214,7 +294,22 @@ end
 let x = Y.X.A
 ```
 
-What is the type of `x`: `X.t`{.option} or `Y.X.t`{.option}?
+How should the type of `x` be printed?
+
+{carousel poll-element #could_connect9}
+>
+> `X.t` [0]{.poll-result}
+>
+> ---
+>
+> `Y.X.t` [0]{.poll-result}
+>
+
+{exec}
+```slip-script
+slip.setClass(document.querySelector("#could_connect9"), "revealed-resuslts", true)
+```
+
 
 {change-page='examples'}
 
@@ -232,7 +327,21 @@ module X = Y.X
 let x = X.A
 ```
 
-What is the type of `x`: `X.t`{.option} or `Y.X.t`{.option}?
+How should the type of `x` be printed?
+
+{carousel poll-element #could_connect10}
+>
+> `X.t` [0]{.poll-result}
+>
+> ---
+>
+> `Y.X.t` [0]{.poll-result}
+>
+
+{exec}
+```slip-script
+slip.setClass(document.querySelector("#could_connect10"), "revealed-resuslts", true)
+```
 
 {change-page='examples'}
 
@@ -250,7 +359,21 @@ module X = Y.X
 let x = Y.X.A
 ```
 
-What is the type of `x`: `X.t`{.option} or `Y.X.t`{.option}?
+How should the type of `x` be printed?
+
+{carousel poll-element #could_connect11}
+>
+> `X.t` [0]{.poll-result}
+>
+> ---
+>
+> `Y.X.t` [0]{.poll-result}
+>
+
+{exec}
+```slip-script
+slip.setClass(document.querySelector("#could_connect11"), "revealed-resuslts", true)
+```
 
 {pause=tkw2}
 
@@ -270,7 +393,21 @@ end
 let x = Y.X.A
 ```
 
-What is the type of `x`: `Y.X.t`{.option} or `X__.t`{.option}?
+How should the type of `x` be printed?
+
+{carousel poll-element #could_connect12}
+>
+> `Y.X.t` [0]{.poll-result}
+>
+> ---
+>
+> `X__.t` [0]{.poll-result}
+>
+
+{exec}
+```slip-script
+slip.setClass(document.querySelector("#could_connect12"), "revealed-resuslts", true)
+```
 
 {pause=tkw3}
 
@@ -280,11 +417,11 @@ What is the type of `x`: `Y.X.t`{.option} or `X__.t`{.option}?
 
 ---
 
-{include src=base-is-a-beast.slp #beast .unstatic}
-
 {focus=beast}
 
 {unfocus down=takeaways}
+
+{include src=base-is-a-beast.slp #beast .unstatic}
 
 {pause=tkw5}
 
