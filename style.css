@@ -55,6 +55,13 @@ code {
     opacity: 1;
 }
 
+.poll_element_children {
+    border: 2px solid black;
+    border-radius: 5px;
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
 .poll_element_children:hover {
     background-color: grey;
     cursor: pointer;
@@ -63,4 +70,21 @@ code {
 .poll_element {
     display: flex;
     justify-content: space-around;
+}
+
+#examples > .slipshow__carousel_children {
+    min-width:0;
+}
+#examples code {
+    overflow:visible;
+}
+.poll-result {
+    display:inline-block;
+    background: lightgreen;
+    border: 1px solid black;
+    border-radius:3px;
+    padding:4px;
+}
+#green-square {
+    background-color: lightgreen;
 }

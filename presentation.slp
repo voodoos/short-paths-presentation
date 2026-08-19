@@ -48,7 +48,7 @@ slip.setClass(document.querySelector("#could_connect"), "revealed-resuslts", tru
 
 
 {.block title="Question"}
-How to print (fully-qualified) paths?
+How to print an OCaml paths (fully-qualified), using a "Longident"?
 
 {pause up .carousel-fixed-size carousel #examples}
 ----
@@ -59,7 +59,7 @@ type t = string
 let x = "Ocaml Workshop"
 ```
 
-What should the type of `x` be printed: `t`{.option} or `string`{.option}?
+How should the type of `x` be printed?
 
 {carousel poll-element #could_connect2}
 >
@@ -84,21 +84,58 @@ slip.setClass(document.querySelector("#could_connect2"), "revealed-resuslts", tr
 
 ```ocaml
 module X = struct
-  type t = string
+  type t = A
 end
 
-let x = "Ocaml Workshop"
+open X
+
+let x = A (* Type of this? *)
+```
+
+How should the type of `x` be printed?
+
+{carousel poll-element #could_connect4}
+>
+> `t` [0]{.poll-result}
+>
+> ---
+>
+> `X.t` [0]{.poll-result}
+>
+
+{exec}
+```slip-script
+slip.setClass(document.querySelector("#could_connect4"), "revealed-resuslts", true)
+```
+
+{pause=tkw1}
+
+{change-page='examples'}
+
+---
+
+```ocaml
+module Alpha = struct
+  type t = A
+end
+
+module X = struct
+  module Y = Alpha
+end
+
+let x = Alpha.A (* Type of this? *)
+let y = X.Y.A
 ```
 
 How should the type of `x` be printed?
 
 {carousel poll-element #could_connect3}
 >
-> `X.t` [0]{.poll-result}
+> `X.Y.t` [0]{.poll-result}
 >
 > ---
 >
-> `string` [0]{.poll-result}
+> `Alpha.t` [0]{.poll-result}
 >
 
 {exec}
@@ -106,6 +143,41 @@ How should the type of `x` be printed?
 slip.setClass(document.querySelector("#could_connect3"), "revealed-resuslts", true)
 ```
 
+{change-page='examples'}
+
+
+---
+
+```ocaml
+module Alpha = struct
+  type t = A
+end
+
+module X = struct
+  module Y = Alpha
+end
+
+let x = Alpha.A
+let y = X.Y.A   (* Type of this? *)
+```
+
+How should the type of `y` be printed?
+
+{carousel poll-element #could_connect3etdemi}
+>
+> `X.Y.t` [0]{.poll-result}
+>
+> ---
+>
+> `Alpha.t` [0]{.poll-result}
+>
+
+{exec}
+```slip-script
+slip.setClass(document.querySelector("#could_connect3etdemi"), "revealed-resuslts", true)
+```
+
+{pause=tkw2}
 
 {change-page='examples'}
 
@@ -124,260 +196,6 @@ slip.setClass(document.querySelector("#could_connect3"), "revealed-resuslts", tr
 <!-- ```slip-script -->
 <!-- slip.setClass(document.querySelector("#could_connect3"), "revealed-resuslts", true) -->
 <!-- ``` -->
-
-
----
-
-```ocaml
-module X = struct
-  type t = string
-end
-
-open X
-
-let x = "Ocaml Workshop"
-```
-
-How should the type of `x` be printed?
-
-{carousel poll-element #could_connect4}
->
-> `t` [0]{.poll-result}
->
-> ---
->
-> `string` [0]{.poll-result}
->
-> ---
->
-> `X.t` [0]{.poll-result}
->
-
-{exec}
-```slip-script
-slip.setClass(document.querySelector("#could_connect4"), "revealed-resuslts", true)
-```
-
-
-
-{change-page='examples'}
-
----
-
-```ocaml
-module X = struct
-  type t = string
-end
-
-let x = "Ocaml Workshop"
-```
-
-How should the type of `x` be printed?
-
-{carousel poll-element #could_connect5}
->
-> `X.t` [0]{.poll-result}
->
-> ---
->
-> `string` [0]{.poll-result}
->
-
-{exec}
-```slip-script
-slip.setClass(document.querySelector("#could_connect5"), "revealed-resuslts", true)
-```
-
-{change-page='examples'}
-
----
-
-```ocaml
-open X (* Defines type [t = string] *)
-
-let x = "Ocaml Workshop"
-```
-
-How should the type of `x` be printed?
-
-{carousel poll-element #could_connect6}
->
-> `X.t` [0]{.poll-result}
->
-> ---
->
-> `string` [0]{.poll-result}
->
-> ---
->
-> `t` [0]{.poll-result}
->
-
-{exec}
-```slip-script
-slip.setClass(document.querySelector("#could_connect6"), "revealed-resuslts", true)
-```
-
-{change-page='examples'}
-
----
-
-```ocaml
-(* X is in scope and defines [type t = string] *)
-
-let x = "Ocaml Workshop"
-```
-
-How should the type of `x` be printed?
-
-{carousel poll-element #could_connect7}
->
-> `X.t` [0]{.poll-result}
->
-> ---
->
-> `string` [0]{.poll-result}
->
-
-{exec}
-```slip-script
-slip.setClass(document.querySelector("#could_connect7"), "revealed-resuslts", true)
-```
-
-{pause=tkw1}
-
-{change-page='examples'}
-
----
-
-```ocaml
-module X = struct
-  type t = A
-end
-
-module Y = struct
-  module X = X
-end
-
-let x = X.A
-```
-
-How should the type of `x` be printed?
-
-{carousel poll-element #could_connect8}
->
-> `X.t` [0]{.poll-result}
->
-> ---
->
-> `Y.X.t` [0]{.poll-result}
->
-
-{exec}
-```slip-script
-slip.setClass(document.querySelector("#could_connect8"), "revealed-resuslts", true)
-```
-
-{change-page='examples'}
-
----
-
-```ocaml
-module X = struct
-  type t = A
-end
-
-module Y = struct
-  module X = X
-end
-
-let x = Y.X.A
-```
-
-How should the type of `x` be printed?
-
-{carousel poll-element #could_connect9}
->
-> `X.t` [0]{.poll-result}
->
-> ---
->
-> `Y.X.t` [0]{.poll-result}
->
-
-{exec}
-```slip-script
-slip.setClass(document.querySelector("#could_connect9"), "revealed-resuslts", true)
-```
-
-
-{change-page='examples'}
-
----
-
-```ocaml
-module Y = struct
-  module X = struct
-    type t = A
-  end
-end
-
-module X = Y.X
-
-let x = X.A
-```
-
-How should the type of `x` be printed?
-
-{carousel poll-element #could_connect10}
->
-> `X.t` [0]{.poll-result}
->
-> ---
->
-> `Y.X.t` [0]{.poll-result}
->
-
-{exec}
-```slip-script
-slip.setClass(document.querySelector("#could_connect10"), "revealed-resuslts", true)
-```
-
-{change-page='examples'}
-
----
-
-```ocaml
-module Y = struct
-  module X = struct
-    type t = A
-  end
-end
-
-module X = Y.X
-
-let x = Y.X.A
-```
-
-How should the type of `x` be printed?
-
-{carousel poll-element #could_connect11}
->
-> `X.t` [0]{.poll-result}
->
-> ---
->
-> `Y.X.t` [0]{.poll-result}
->
-
-{exec}
-```slip-script
-slip.setClass(document.querySelector("#could_connect11"), "revealed-resuslts", true)
-```
-
-{pause=tkw2}
-
-{change-page='examples'}
 
 ---
 
@@ -411,8 +229,6 @@ slip.setClass(document.querySelector("#could_connect12"), "revealed-resuslts", t
 
 {pause=tkw3}
 
-{pause=tkw4}
-
 {change-page='examples' static=beast}
 
 ---
@@ -423,42 +239,93 @@ slip.setClass(document.querySelector("#could_connect12"), "revealed-resuslts", t
 
 {include src=base-is-a-beast.slp #beast .unstatic}
 
-{pause=tkw5}
+{pause=tkw4}
 
 ----
 
 
-
 {.block #takeaways}
+> {gui="~x:-3 ~y:84 ~w:961 ~h:185" #green-square .unrevealed}
+>
+> {style=position:relative;z-index:10}
 > - **Takeaway 0**: Can't be always good. {#tkw1}
 >
-> - **Takeaway 1**: The path we want to show depends on what is in scope/how it is put in scope. {#tkw2}
+> - **Takeaway 1**: We don't want full qualification. {#tkw2}
 >
-> - **Takeaway 2**: The length of the path matters. {#tkw3}
+> - **Takeaway 2**: We tend to prefer shorter paths. {#tkw3}
 >
 > - **Takeaway 3**: We want to avoid paths including hidden modules.  {#tkw4}
 >
-> - **Takeaway 4**: The environment may be big.  {#tkw5}
+> - [**Takeaway 5**: Codebases can be complex.]{#can-be-complex}
+
+{pause up=takeaways reveal=green-square}
+
+{#lets-use}
+# Let's use the "_shortest longident without `__`_".
+
+That concludes the talk.[]{pause}.. Wait how can we implement that?
+
+{up=lets-use pause}
+## An example with multiple compilation units
+
+{style=display:flex}
+----
+
+{style=width:50%}
+---
+```ocaml
+(* def.ml *)
+module X = struct
+  type t = A
+end
+```
+```ocaml
+(* aliaser.ml *)
+type t = Def.X.t
+```
+```ocaml
+(* user.ml *)
+let x = Def.X.A
+```
+{style="padding-left:30px"}
+---
+- `main.ml` defines a type inside a submodule {pause}
+
+- `aliaser.ml` aliases it without submodule {pause}
+
+- `user.ml` uses a value of the type, but never mentions `aliaser.ml` (but it is in the load path).
+
+{.block pause}
+> How should the type of `x` in `user.ml` be printed?
 >
-> - **Takeaway 5**: Codebases can be complex.
+> {carousel poll-element #could_connect14}
+> >
+> > `Def.X.t` [0]{.poll-result}
+> >
+> > ---
+> >
+> > `Aliaser.t` [0]{.poll-result}
+> >
 
-{pause up=takeaways}
+{exec}
+```slip-script
+slip.setClass(document.querySelector("#could_connect14"), "revealed-resuslts", true)
+```
 
-- **Conclusion 0**: We shouldn't list all possibilities.
+----
 
-- **Conclusion 1**: Between possibilities, we must find a heuristic.
+{.block pause style=background-color:pink;font-size:1.2em #finding-all}
+Finding the "shortest path" requires to load ALL compilations units to look for an alias of our type.
 
-  - Hidden is worse
-  - Shorter is better
-  - ...
+{focus="~margin:30 finding-all can-be-complex"}
 
-- **Conclusion 2**: The path should be correct.
-
-{pause up}
-## The history of printing paths
+{pause unfocus up=finding-all}
+## The history of printing approximately shortest paths
 
 There already exist two implementations of short-paths for OCaml! {pause}
 
+{style=display:flex}
+----
 ### One in the compiler
 
 - Initially written by Jacques Garrigue.
@@ -470,6 +337,8 @@ There already exist two implementations of short-paths for OCaml! {pause}
 - Rather simple, but computationally intensive and often provides unsatisfying results.
 
 {pause}
+
+---
 
 ### One in merlin
 
@@ -483,7 +352,7 @@ There already exist two implementations of short-paths for OCaml! {pause}
 
 - It's one of the main pain points when upgrading Merlin to a new version of the
   typer.
-
+----
 {pause}
 
 Let's make a third one ! Leo White, who wrote the current implementation in Merlin came up with a new, "simpler", design.

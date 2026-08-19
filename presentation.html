@@ -858,6 +858,13 @@ code {
     opacity: 1;
 }
 
+.poll_element_children {
+    border: 2px solid black;
+    border-radius: 5px;
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
 .poll_element_children:hover {
     background-color: grey;
     cursor: pointer;
@@ -866,6 +873,23 @@ code {
 .poll_element {
     display: flex;
     justify-content: space-around;
+}
+
+#examples &gt; .slipshow__carousel_children {
+    min-width:0;
+}
+#examples code {
+    overflow:visible;
+}
+.poll-result {
+    display:inline-block;
+    background: lightgreen;
+    border: 1px solid black;
+    border-radius:3px;
+    padding:4px;
+}
+#green-square {
+    background-color: lightgreen;
 }
 &lt;/style&gt;
 &lt;style&gt;/*!
@@ -1250,7 +1274,7 @@ end:/$/}]}}})();hljs.registerLanguage(&quot;diff&quot;,e)})();&lt;/script&gt;
 slip.setClass(document.querySelector(&quot;#could_connect&quot;), &quot;revealed-resuslts&quot;, true)&lt;/script&gt;
 &lt;div unstatic-at-unpause=tto-remove pause&gt;&lt;/div&gt;
 &lt;!-- TODO Do we really need a demo ? I feel like the subject is not very demo worthy, apart from showing maybe one bad type happening ? --&gt;
-&lt;p class=&quot;block&quot; title=&quot;Question&quot;&gt;&lt;span&gt;How to print (fully-qualified) paths?&lt;/span&gt;&lt;/p&gt;
+&lt;p class=&quot;block&quot; title=&quot;Question&quot;&gt;&lt;span&gt;How to print an OCaml paths (fully-qualified), using a &amp;quot;Longident&amp;quot;?&lt;/span&gt;&lt;/p&gt;
 &lt;/div&gt;
 &lt;div id=&quot;examples&quot; class=&quot;slipshow__carousel carousel-fixed-size&quot; carousel up-at-unpause pause&gt;
 &lt;div class=&quot;slipshow__carousel_active slipshow__carousel_children&quot;&gt;
@@ -1259,7 +1283,7 @@ slip.setClass(document.querySelector(&quot;#could_connect&quot;), &quot;revealed
 
 let x = &amp;quot;Ocaml Workshop&amp;quot;
 &lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;&lt;span&gt;What should the type of &lt;/span&gt;&lt;code&gt;x&lt;/code&gt;&lt;span&gt; be printed: &lt;/span&gt;&lt;code class=&quot;option&quot;&gt;t&lt;/code&gt;&lt;span&gt; or &lt;/span&gt;&lt;code class=&quot;option&quot;&gt;string&lt;/code&gt;&lt;span&gt;?&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;&lt;span&gt;How should the type of &lt;/span&gt;&lt;code&gt;x&lt;/code&gt;&lt;span&gt; be printed?&lt;/span&gt;&lt;/p&gt;
 &lt;div id=&quot;could_connect2&quot; class=&quot;poll_element&quot; carousel poll-element&gt;
 &lt;div class=&quot;poll_element_children&quot;&gt;
 &lt;p&gt;&lt;code&gt;t&lt;/code&gt;&lt;span&gt; &lt;/span&gt;&lt;span class=&quot;poll-result&quot;&gt;&lt;span&gt;0&lt;/span&gt;&lt;/span&gt;&lt;/p&gt;
@@ -1277,22 +1301,80 @@ slip.setClass(document.querySelector(&quot;#could_connect2&quot;), &quot;reveale
 &lt;div class=&quot;slipshow__carousel_children&quot;&gt;
 &lt;div&gt;
 &lt;pre&gt;&lt;code class=&quot;language-ocaml&quot;&gt;module X = struct
-  type t = string
+  type t = A
 end
 
-let x = &amp;quot;Ocaml Workshop&amp;quot;
+open X
+
+let x = A (* Type of this? *)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;span&gt;How should the type of &lt;/span&gt;&lt;code&gt;x&lt;/code&gt;&lt;span&gt; be printed?&lt;/span&gt;&lt;/p&gt;
+&lt;div id=&quot;could_connect4&quot; class=&quot;poll_element&quot; carousel poll-element&gt;
+&lt;div class=&quot;poll_element_children&quot;&gt;
+&lt;p&gt;&lt;code&gt;t&lt;/code&gt;&lt;span&gt; &lt;/span&gt;&lt;span class=&quot;poll-result&quot;&gt;&lt;span&gt;0&lt;/span&gt;&lt;/span&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;poll_element_children&quot;&gt;
+&lt;p&gt;&lt;code&gt;X.t&lt;/code&gt;&lt;span&gt; &lt;/span&gt;&lt;span class=&quot;poll-result&quot;&gt;&lt;span&gt;0&lt;/span&gt;&lt;/span&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;poll-global-result&quot;&gt;&lt;p&gt;Answers: 0&lt;/p&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;script type=slip-script exec-at-unpause&gt;
+slip.setClass(document.querySelector(&quot;#could_connect4&quot;), &quot;revealed-resuslts&quot;, true)&lt;/script&gt;
+&lt;div pause=tkw1&gt;&lt;/div&gt;
+&lt;div change-page='examples'&gt;&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;slipshow__carousel_children&quot;&gt;
+&lt;div&gt;
+&lt;pre&gt;&lt;code class=&quot;language-ocaml&quot;&gt;module Alpha = struct
+  type t = A
+end
+
+module X = struct
+  module Y = Alpha
+end
+
+let x = Alpha.A (* Type of this? *)
+let y = X.Y.A
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;&lt;span&gt;How should the type of &lt;/span&gt;&lt;code&gt;x&lt;/code&gt;&lt;span&gt; be printed?&lt;/span&gt;&lt;/p&gt;
 &lt;div id=&quot;could_connect3&quot; class=&quot;poll_element&quot; carousel poll-element&gt;
 &lt;div class=&quot;poll_element_children&quot;&gt;
-&lt;p&gt;&lt;code&gt;X.t&lt;/code&gt;&lt;span&gt; &lt;/span&gt;&lt;span class=&quot;poll-result&quot;&gt;&lt;span&gt;0&lt;/span&gt;&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;X.Y.t&lt;/code&gt;&lt;span&gt; &lt;/span&gt;&lt;span class=&quot;poll-result&quot;&gt;&lt;span&gt;0&lt;/span&gt;&lt;/span&gt;&lt;/p&gt;
 &lt;/div&gt;
 &lt;div class=&quot;poll_element_children&quot;&gt;
-&lt;p&gt;&lt;code&gt;string&lt;/code&gt;&lt;span&gt; &lt;/span&gt;&lt;span class=&quot;poll-result&quot;&gt;&lt;span&gt;0&lt;/span&gt;&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;Alpha.t&lt;/code&gt;&lt;span&gt; &lt;/span&gt;&lt;span class=&quot;poll-result&quot;&gt;&lt;span&gt;0&lt;/span&gt;&lt;/span&gt;&lt;/p&gt;
 &lt;/div&gt;
 &lt;div class=&quot;poll-global-result&quot;&gt;&lt;p&gt;Answers: 0&lt;/p&gt;&lt;/div&gt;&lt;/div&gt;
 &lt;script type=slip-script exec-at-unpause&gt;
 slip.setClass(document.querySelector(&quot;#could_connect3&quot;), &quot;revealed-resuslts&quot;, true)&lt;/script&gt;
+&lt;div change-page='examples'&gt;&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;slipshow__carousel_children&quot;&gt;
+&lt;div&gt;
+&lt;pre&gt;&lt;code class=&quot;language-ocaml&quot;&gt;module Alpha = struct
+  type t = A
+end
+
+module X = struct
+  module Y = Alpha
+end
+
+let x = Alpha.A
+let y = X.Y.A   (* Type of this? *)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;span&gt;How should the type of &lt;/span&gt;&lt;code&gt;y&lt;/code&gt;&lt;span&gt; be printed?&lt;/span&gt;&lt;/p&gt;
+&lt;div id=&quot;could_connect3etdemi&quot; class=&quot;poll_element&quot; carousel poll-element&gt;
+&lt;div class=&quot;poll_element_children&quot;&gt;
+&lt;p&gt;&lt;code&gt;X.Y.t&lt;/code&gt;&lt;span&gt; &lt;/span&gt;&lt;span class=&quot;poll-result&quot;&gt;&lt;span&gt;0&lt;/span&gt;&lt;/span&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;poll_element_children&quot;&gt;
+&lt;p&gt;&lt;code&gt;Alpha.t&lt;/code&gt;&lt;span&gt; &lt;/span&gt;&lt;span class=&quot;poll-result&quot;&gt;&lt;span&gt;0&lt;/span&gt;&lt;/span&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;poll-global-result&quot;&gt;&lt;p&gt;Answers: 0&lt;/p&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;script type=slip-script exec-at-unpause&gt;
+slip.setClass(document.querySelector(&quot;#could_connect3etdemi&quot;), &quot;revealed-resuslts&quot;, true)&lt;/script&gt;
+&lt;div pause=tkw2&gt;&lt;/div&gt;
 &lt;div change-page='examples'&gt;&lt;/div&gt;
 &lt;!-- {carousel poll-element #could_connect3} --&gt;
 &lt;!-- &gt; --&gt;
@@ -1306,204 +1388,6 @@ slip.setClass(document.querySelector(&quot;#could_connect3&quot;), &quot;reveale
 &lt;!-- ```slip-script --&gt;
 &lt;!-- slip.setClass(document.querySelector(&quot;#could_connect3&quot;), &quot;revealed-resuslts&quot;, true) --&gt;
 &lt;!-- ``` --&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;div class=&quot;slipshow__carousel_children&quot;&gt;
-&lt;div&gt;
-&lt;pre&gt;&lt;code class=&quot;language-ocaml&quot;&gt;module X = struct
-  type t = string
-end
-
-open X
-
-let x = &amp;quot;Ocaml Workshop&amp;quot;
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;&lt;span&gt;How should the type of &lt;/span&gt;&lt;code&gt;x&lt;/code&gt;&lt;span&gt; be printed?&lt;/span&gt;&lt;/p&gt;
-&lt;div id=&quot;could_connect4&quot; class=&quot;poll_element&quot; carousel poll-element&gt;
-&lt;div class=&quot;poll_element_children&quot;&gt;
-&lt;p&gt;&lt;code&gt;t&lt;/code&gt;&lt;span&gt; &lt;/span&gt;&lt;span class=&quot;poll-result&quot;&gt;&lt;span&gt;0&lt;/span&gt;&lt;/span&gt;&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;poll_element_children&quot;&gt;
-&lt;p&gt;&lt;code&gt;string&lt;/code&gt;&lt;span&gt; &lt;/span&gt;&lt;span class=&quot;poll-result&quot;&gt;&lt;span&gt;0&lt;/span&gt;&lt;/span&gt;&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;poll_element_children&quot;&gt;
-&lt;p&gt;&lt;code&gt;X.t&lt;/code&gt;&lt;span&gt; &lt;/span&gt;&lt;span class=&quot;poll-result&quot;&gt;&lt;span&gt;0&lt;/span&gt;&lt;/span&gt;&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;poll-global-result&quot;&gt;&lt;p&gt;Answers: 0&lt;/p&gt;&lt;/div&gt;&lt;/div&gt;
-&lt;script type=slip-script exec-at-unpause&gt;
-slip.setClass(document.querySelector(&quot;#could_connect4&quot;), &quot;revealed-resuslts&quot;, true)&lt;/script&gt;
-&lt;div change-page='examples'&gt;&lt;/div&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;div class=&quot;slipshow__carousel_children&quot;&gt;
-&lt;div&gt;
-&lt;pre&gt;&lt;code class=&quot;language-ocaml&quot;&gt;module X = struct
-  type t = string
-end
-
-let x = &amp;quot;Ocaml Workshop&amp;quot;
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;&lt;span&gt;How should the type of &lt;/span&gt;&lt;code&gt;x&lt;/code&gt;&lt;span&gt; be printed?&lt;/span&gt;&lt;/p&gt;
-&lt;div id=&quot;could_connect5&quot; class=&quot;poll_element&quot; carousel poll-element&gt;
-&lt;div class=&quot;poll_element_children&quot;&gt;
-&lt;p&gt;&lt;code&gt;X.t&lt;/code&gt;&lt;span&gt; &lt;/span&gt;&lt;span class=&quot;poll-result&quot;&gt;&lt;span&gt;0&lt;/span&gt;&lt;/span&gt;&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;poll_element_children&quot;&gt;
-&lt;p&gt;&lt;code&gt;string&lt;/code&gt;&lt;span&gt; &lt;/span&gt;&lt;span class=&quot;poll-result&quot;&gt;&lt;span&gt;0&lt;/span&gt;&lt;/span&gt;&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;poll-global-result&quot;&gt;&lt;p&gt;Answers: 0&lt;/p&gt;&lt;/div&gt;&lt;/div&gt;
-&lt;script type=slip-script exec-at-unpause&gt;
-slip.setClass(document.querySelector(&quot;#could_connect5&quot;), &quot;revealed-resuslts&quot;, true)&lt;/script&gt;
-&lt;div change-page='examples'&gt;&lt;/div&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;div class=&quot;slipshow__carousel_children&quot;&gt;
-&lt;div&gt;
-&lt;pre&gt;&lt;code class=&quot;language-ocaml&quot;&gt;open X (* Defines type [t = string] *)
-
-let x = &amp;quot;Ocaml Workshop&amp;quot;
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;&lt;span&gt;How should the type of &lt;/span&gt;&lt;code&gt;x&lt;/code&gt;&lt;span&gt; be printed?&lt;/span&gt;&lt;/p&gt;
-&lt;div id=&quot;could_connect6&quot; class=&quot;poll_element&quot; carousel poll-element&gt;
-&lt;div class=&quot;poll_element_children&quot;&gt;
-&lt;p&gt;&lt;code&gt;X.t&lt;/code&gt;&lt;span&gt; &lt;/span&gt;&lt;span class=&quot;poll-result&quot;&gt;&lt;span&gt;0&lt;/span&gt;&lt;/span&gt;&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;poll_element_children&quot;&gt;
-&lt;p&gt;&lt;code&gt;string&lt;/code&gt;&lt;span&gt; &lt;/span&gt;&lt;span class=&quot;poll-result&quot;&gt;&lt;span&gt;0&lt;/span&gt;&lt;/span&gt;&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;poll_element_children&quot;&gt;
-&lt;p&gt;&lt;code&gt;t&lt;/code&gt;&lt;span&gt; &lt;/span&gt;&lt;span class=&quot;poll-result&quot;&gt;&lt;span&gt;0&lt;/span&gt;&lt;/span&gt;&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;poll-global-result&quot;&gt;&lt;p&gt;Answers: 0&lt;/p&gt;&lt;/div&gt;&lt;/div&gt;
-&lt;script type=slip-script exec-at-unpause&gt;
-slip.setClass(document.querySelector(&quot;#could_connect6&quot;), &quot;revealed-resuslts&quot;, true)&lt;/script&gt;
-&lt;div change-page='examples'&gt;&lt;/div&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;div class=&quot;slipshow__carousel_children&quot;&gt;
-&lt;div&gt;
-&lt;pre&gt;&lt;code class=&quot;language-ocaml&quot;&gt;(* X is in scope and defines [type t = string] *)
-
-let x = &amp;quot;Ocaml Workshop&amp;quot;
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;&lt;span&gt;How should the type of &lt;/span&gt;&lt;code&gt;x&lt;/code&gt;&lt;span&gt; be printed?&lt;/span&gt;&lt;/p&gt;
-&lt;div id=&quot;could_connect7&quot; class=&quot;poll_element&quot; carousel poll-element&gt;
-&lt;div class=&quot;poll_element_children&quot;&gt;
-&lt;p&gt;&lt;code&gt;X.t&lt;/code&gt;&lt;span&gt; &lt;/span&gt;&lt;span class=&quot;poll-result&quot;&gt;&lt;span&gt;0&lt;/span&gt;&lt;/span&gt;&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;poll_element_children&quot;&gt;
-&lt;p&gt;&lt;code&gt;string&lt;/code&gt;&lt;span&gt; &lt;/span&gt;&lt;span class=&quot;poll-result&quot;&gt;&lt;span&gt;0&lt;/span&gt;&lt;/span&gt;&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;poll-global-result&quot;&gt;&lt;p&gt;Answers: 0&lt;/p&gt;&lt;/div&gt;&lt;/div&gt;
-&lt;script type=slip-script exec-at-unpause&gt;
-slip.setClass(document.querySelector(&quot;#could_connect7&quot;), &quot;revealed-resuslts&quot;, true)&lt;/script&gt;
-&lt;div pause=tkw1&gt;&lt;/div&gt;
-&lt;div change-page='examples'&gt;&lt;/div&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;div class=&quot;slipshow__carousel_children&quot;&gt;
-&lt;div&gt;
-&lt;pre&gt;&lt;code class=&quot;language-ocaml&quot;&gt;module X = struct
-  type t = A
-end
-
-module Y = struct
-  module X = X
-end
-
-let x = X.A
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;&lt;span&gt;How should the type of &lt;/span&gt;&lt;code&gt;x&lt;/code&gt;&lt;span&gt; be printed?&lt;/span&gt;&lt;/p&gt;
-&lt;div id=&quot;could_connect8&quot; class=&quot;poll_element&quot; carousel poll-element&gt;
-&lt;div class=&quot;poll_element_children&quot;&gt;
-&lt;p&gt;&lt;code&gt;X.t&lt;/code&gt;&lt;span&gt; &lt;/span&gt;&lt;span class=&quot;poll-result&quot;&gt;&lt;span&gt;0&lt;/span&gt;&lt;/span&gt;&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;poll_element_children&quot;&gt;
-&lt;p&gt;&lt;code&gt;Y.X.t&lt;/code&gt;&lt;span&gt; &lt;/span&gt;&lt;span class=&quot;poll-result&quot;&gt;&lt;span&gt;0&lt;/span&gt;&lt;/span&gt;&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;poll-global-result&quot;&gt;&lt;p&gt;Answers: 0&lt;/p&gt;&lt;/div&gt;&lt;/div&gt;
-&lt;script type=slip-script exec-at-unpause&gt;
-slip.setClass(document.querySelector(&quot;#could_connect8&quot;), &quot;revealed-resuslts&quot;, true)&lt;/script&gt;
-&lt;div change-page='examples'&gt;&lt;/div&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;div class=&quot;slipshow__carousel_children&quot;&gt;
-&lt;div&gt;
-&lt;pre&gt;&lt;code class=&quot;language-ocaml&quot;&gt;module X = struct
-  type t = A
-end
-
-module Y = struct
-  module X = X
-end
-
-let x = Y.X.A
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;&lt;span&gt;How should the type of &lt;/span&gt;&lt;code&gt;x&lt;/code&gt;&lt;span&gt; be printed?&lt;/span&gt;&lt;/p&gt;
-&lt;div id=&quot;could_connect9&quot; class=&quot;poll_element&quot; carousel poll-element&gt;
-&lt;div class=&quot;poll_element_children&quot;&gt;
-&lt;p&gt;&lt;code&gt;X.t&lt;/code&gt;&lt;span&gt; &lt;/span&gt;&lt;span class=&quot;poll-result&quot;&gt;&lt;span&gt;0&lt;/span&gt;&lt;/span&gt;&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;poll_element_children&quot;&gt;
-&lt;p&gt;&lt;code&gt;Y.X.t&lt;/code&gt;&lt;span&gt; &lt;/span&gt;&lt;span class=&quot;poll-result&quot;&gt;&lt;span&gt;0&lt;/span&gt;&lt;/span&gt;&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;poll-global-result&quot;&gt;&lt;p&gt;Answers: 0&lt;/p&gt;&lt;/div&gt;&lt;/div&gt;
-&lt;script type=slip-script exec-at-unpause&gt;
-slip.setClass(document.querySelector(&quot;#could_connect9&quot;), &quot;revealed-resuslts&quot;, true)&lt;/script&gt;
-&lt;div change-page='examples'&gt;&lt;/div&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;div class=&quot;slipshow__carousel_children&quot;&gt;
-&lt;div&gt;
-&lt;pre&gt;&lt;code class=&quot;language-ocaml&quot;&gt;module Y = struct
-  module X = struct
-    type t = A
-  end
-end
-
-module X = Y.X
-
-let x = X.A
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;&lt;span&gt;How should the type of &lt;/span&gt;&lt;code&gt;x&lt;/code&gt;&lt;span&gt; be printed?&lt;/span&gt;&lt;/p&gt;
-&lt;div id=&quot;could_connect10&quot; class=&quot;poll_element&quot; carousel poll-element&gt;
-&lt;div class=&quot;poll_element_children&quot;&gt;
-&lt;p&gt;&lt;code&gt;X.t&lt;/code&gt;&lt;span&gt; &lt;/span&gt;&lt;span class=&quot;poll-result&quot;&gt;&lt;span&gt;0&lt;/span&gt;&lt;/span&gt;&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;poll_element_children&quot;&gt;
-&lt;p&gt;&lt;code&gt;Y.X.t&lt;/code&gt;&lt;span&gt; &lt;/span&gt;&lt;span class=&quot;poll-result&quot;&gt;&lt;span&gt;0&lt;/span&gt;&lt;/span&gt;&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;poll-global-result&quot;&gt;&lt;p&gt;Answers: 0&lt;/p&gt;&lt;/div&gt;&lt;/div&gt;
-&lt;script type=slip-script exec-at-unpause&gt;
-slip.setClass(document.querySelector(&quot;#could_connect10&quot;), &quot;revealed-resuslts&quot;, true)&lt;/script&gt;
-&lt;div change-page='examples'&gt;&lt;/div&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;div class=&quot;slipshow__carousel_children&quot;&gt;
-&lt;div&gt;
-&lt;pre&gt;&lt;code class=&quot;language-ocaml&quot;&gt;module Y = struct
-  module X = struct
-    type t = A
-  end
-end
-
-module X = Y.X
-
-let x = Y.X.A
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;&lt;span&gt;How should the type of &lt;/span&gt;&lt;code&gt;x&lt;/code&gt;&lt;span&gt; be printed?&lt;/span&gt;&lt;/p&gt;
-&lt;div id=&quot;could_connect11&quot; class=&quot;poll_element&quot; carousel poll-element&gt;
-&lt;div class=&quot;poll_element_children&quot;&gt;
-&lt;p&gt;&lt;code&gt;X.t&lt;/code&gt;&lt;span&gt; &lt;/span&gt;&lt;span class=&quot;poll-result&quot;&gt;&lt;span&gt;0&lt;/span&gt;&lt;/span&gt;&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;poll_element_children&quot;&gt;
-&lt;p&gt;&lt;code&gt;Y.X.t&lt;/code&gt;&lt;span&gt; &lt;/span&gt;&lt;span class=&quot;poll-result&quot;&gt;&lt;span&gt;0&lt;/span&gt;&lt;/span&gt;&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;poll-global-result&quot;&gt;&lt;p&gt;Answers: 0&lt;/p&gt;&lt;/div&gt;&lt;/div&gt;
-&lt;script type=slip-script exec-at-unpause&gt;
-slip.setClass(document.querySelector(&quot;#could_connect11&quot;), &quot;revealed-resuslts&quot;, true)&lt;/script&gt;
-&lt;div pause=tkw2&gt;&lt;/div&gt;
-&lt;div change-page='examples'&gt;&lt;/div&gt;
 &lt;/div&gt;
 &lt;/div&gt;
 &lt;div class=&quot;slipshow__carousel_children&quot;&gt;
@@ -1530,7 +1414,6 @@ let x = Y.X.A
 &lt;script type=slip-script exec-at-unpause&gt;
 slip.setClass(document.querySelector(&quot;#could_connect12&quot;), &quot;revealed-resuslts&quot;, true)&lt;/script&gt;
 &lt;div pause=tkw3&gt;&lt;/div&gt;
-&lt;div pause=tkw4&gt;&lt;/div&gt;
 &lt;div change-page='examples' static-at-unpause=beast&gt;&lt;/div&gt;
 &lt;/div&gt;
 &lt;/div&gt;
@@ -2163,53 +2046,87 @@ end]
 &lt;script type=slip-script exec-at-unpause&gt;
 slip.setClass(document.querySelector(&quot;#could_connect13&quot;), &quot;revealed-resuslts&quot;, true)&lt;/script&gt;
 &lt;/div&gt;
-&lt;div pause=tkw5&gt;&lt;/div&gt;
+&lt;div pause=tkw4&gt;&lt;/div&gt;
 &lt;/div&gt;
 &lt;/div&gt;
 &lt;/div&gt;
-&lt;div&gt;
 &lt;div&gt;
 &lt;div id=&quot;takeaways&quot; class=&quot;block&quot;&gt;
+&lt;div id=&quot;green-square&quot; class=&quot;unrevealed&quot; gui=&quot;~x:-3 ~y:84 ~w:961 ~h:185&quot;&gt;&lt;/div&gt;
+&lt;div style=position:relative;z-index:10&gt;
 &lt;ul&gt;
 &lt;li&gt;
 &lt;p&gt;&lt;strong&gt;&lt;span&gt;Takeaway 0&lt;/span&gt;&lt;/strong&gt;&lt;span&gt;: Can't be always good. &lt;/span&gt;&lt;span id=&quot;tkw1&quot;&gt;&lt;/span&gt;&lt;/p&gt;
 &lt;/li&gt;
 &lt;li&gt;
-&lt;p&gt;&lt;strong&gt;&lt;span&gt;Takeaway 1&lt;/span&gt;&lt;/strong&gt;&lt;span&gt;: The path we want to show depends on what is in scope/how it is put in scope. &lt;/span&gt;&lt;span id=&quot;tkw2&quot;&gt;&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;&lt;span&gt;Takeaway 1&lt;/span&gt;&lt;/strong&gt;&lt;span&gt;: We don't want full qualification. &lt;/span&gt;&lt;span id=&quot;tkw2&quot;&gt;&lt;/span&gt;&lt;/p&gt;
 &lt;/li&gt;
 &lt;li&gt;
-&lt;p&gt;&lt;strong&gt;&lt;span&gt;Takeaway 2&lt;/span&gt;&lt;/strong&gt;&lt;span&gt;: The length of the path matters. &lt;/span&gt;&lt;span id=&quot;tkw3&quot;&gt;&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;&lt;span&gt;Takeaway 2&lt;/span&gt;&lt;/strong&gt;&lt;span&gt;: We tend to prefer shorter paths. &lt;/span&gt;&lt;span id=&quot;tkw3&quot;&gt;&lt;/span&gt;&lt;/p&gt;
 &lt;/li&gt;
 &lt;li&gt;
 &lt;p&gt;&lt;strong&gt;&lt;span&gt;Takeaway 3&lt;/span&gt;&lt;/strong&gt;&lt;span&gt;: We want to avoid paths including hidden modules.  &lt;/span&gt;&lt;span id=&quot;tkw4&quot;&gt;&lt;/span&gt;&lt;/p&gt;
 &lt;/li&gt;
 &lt;li&gt;
-&lt;p&gt;&lt;strong&gt;&lt;span&gt;Takeaway 4&lt;/span&gt;&lt;/strong&gt;&lt;span&gt;: The environment may be big.  &lt;/span&gt;&lt;span id=&quot;tkw5&quot;&gt;&lt;/span&gt;&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;&lt;strong&gt;&lt;span&gt;Takeaway 5&lt;/span&gt;&lt;/strong&gt;&lt;span&gt;: Codebases can be complex.&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;&lt;span id=&quot;can-be-complex&quot;&gt;&lt;strong&gt;&lt;span&gt;Takeaway 5&lt;/span&gt;&lt;/strong&gt;&lt;span&gt;: Codebases can be complex.&lt;/span&gt;&lt;/span&gt;&lt;/p&gt;
 &lt;/li&gt;
 &lt;/ul&gt;
 &lt;/div&gt;
-&lt;div pause up-at-unpause=takeaways&gt;&lt;/div&gt;
+&lt;/div&gt;
+&lt;div pause up-at-unpause=takeaways reveal-at-unpause=green-square&gt;&lt;/div&gt;
+&lt;h1 id=&quot;lets-use&quot;&gt;&lt;a class=&quot;anchor&quot; aria-hidden=&quot;true&quot; href=&quot;#lets-use&quot;&gt;&lt;/a&gt;&lt;span&gt;Let's use the &amp;quot;&lt;/span&gt;&lt;em&gt;&lt;span&gt;shortest longident without &lt;/span&gt;&lt;code&gt;__&lt;/code&gt;&lt;/em&gt;&lt;span&gt;&amp;quot;.&lt;/span&gt;&lt;/h1&gt;
+&lt;p&gt;&lt;span&gt;That concludes the talk.&lt;/span&gt;&lt;span pause&gt;&lt;/span&gt;&lt;span&gt;.. Wait how can we implement that?&lt;/span&gt;&lt;/p&gt;
+&lt;h2 up-at-unpause=lets-use pause&gt;&lt;span&gt;An example with multiple compilation units&lt;/span&gt;&lt;/h2&gt;
+&lt;/div&gt;
+&lt;div style=display:flex&gt;
+&lt;div style=width:50%&gt;
+&lt;pre&gt;&lt;code class=&quot;language-ocaml&quot;&gt;(* def.ml *)
+module X = struct
+  type t = A
+end
+&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code class=&quot;language-ocaml&quot;&gt;(* aliaser.ml *)
+type t = Def.X.t
+&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code class=&quot;language-ocaml&quot;&gt;(* user.ml *)
+let x = Def.X.A
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;div style=&quot;padding-left:30px&quot;&gt;
 &lt;ul&gt;
 &lt;li&gt;
-&lt;p&gt;&lt;strong&gt;&lt;span&gt;Conclusion 0&lt;/span&gt;&lt;/strong&gt;&lt;span&gt;: We shouldn't list all possibilities.&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;main.ml&lt;/code&gt;&lt;span&gt; defines a type inside a submodule &lt;/span&gt;&lt;span pause&gt;&lt;/span&gt;&lt;/p&gt;
 &lt;/li&gt;
 &lt;li&gt;
-&lt;p&gt;&lt;strong&gt;&lt;span&gt;Conclusion 1&lt;/span&gt;&lt;/strong&gt;&lt;span&gt;: Between possibilities, we must find a heuristic.&lt;/span&gt;&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;span&gt;Hidden is worse&lt;/span&gt;&lt;/li&gt;
-&lt;li&gt;&lt;span&gt;Shorter is better&lt;/span&gt;&lt;/li&gt;
-&lt;li&gt;&lt;span&gt;...&lt;/span&gt;&lt;/li&gt;
-&lt;/ul&gt;
+&lt;p&gt;&lt;code&gt;aliaser.ml&lt;/code&gt;&lt;span&gt; aliases it without submodule &lt;/span&gt;&lt;span pause&gt;&lt;/span&gt;&lt;/p&gt;
 &lt;/li&gt;
 &lt;li&gt;
-&lt;p&gt;&lt;strong&gt;&lt;span&gt;Conclusion 2&lt;/span&gt;&lt;/strong&gt;&lt;span&gt;: The path should be correct.&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;user.ml&lt;/code&gt;&lt;span&gt; uses a value of the type, but never mentions &lt;/span&gt;&lt;code&gt;aliaser.ml&lt;/code&gt;&lt;span&gt; (but it is in the load path).&lt;/span&gt;&lt;/p&gt;
 &lt;/li&gt;
 &lt;/ul&gt;
-&lt;h2 pause up-at-unpause&gt;&lt;span&gt;The history of printing paths&lt;/span&gt;&lt;/h2&gt;
+&lt;div class=&quot;block&quot; pause&gt;
+&lt;p&gt;&lt;span&gt;How should the type of &lt;/span&gt;&lt;code&gt;x&lt;/code&gt;&lt;span&gt; in &lt;/span&gt;&lt;code&gt;user.ml&lt;/code&gt;&lt;span&gt; be printed?&lt;/span&gt;&lt;/p&gt;
+&lt;div id=&quot;could_connect14&quot; class=&quot;poll_element&quot; carousel poll-element&gt;
+&lt;div class=&quot;poll_element_children&quot;&gt;
+&lt;p&gt;&lt;code&gt;Def.X.t&lt;/code&gt;&lt;span&gt; &lt;/span&gt;&lt;span class=&quot;poll-result&quot;&gt;&lt;span&gt;0&lt;/span&gt;&lt;/span&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;poll_element_children&quot;&gt;
+&lt;p&gt;&lt;code&gt;Aliaser.t&lt;/code&gt;&lt;span&gt; &lt;/span&gt;&lt;span class=&quot;poll-result&quot;&gt;&lt;span&gt;0&lt;/span&gt;&lt;/span&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;poll-global-result&quot;&gt;&lt;p&gt;Answers: 0&lt;/p&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;/div&gt;
+&lt;script type=slip-script exec-at-unpause&gt;
+slip.setClass(document.querySelector(&quot;#could_connect14&quot;), &quot;revealed-resuslts&quot;, true)&lt;/script&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div&gt;
+&lt;p id=&quot;finding-all&quot; class=&quot;block&quot; pause style=background-color:pink;font-size:1.2em&gt;&lt;span&gt;Finding the &amp;quot;shortest path&amp;quot; requires to load ALL compilations units to look for an alias of our type.&lt;/span&gt;&lt;/p&gt;
+&lt;div focus-at-unpause=&quot;~margin:30 finding-all can-be-complex&quot;&gt;&lt;/div&gt;
+&lt;h2 pause unfocus-at-unpause up-at-unpause=finding-all&gt;&lt;span&gt;The history of printing approximately shortest paths&lt;/span&gt;&lt;/h2&gt;
 &lt;p&gt;&lt;span&gt;There already exist two implementations of short-paths for OCaml! &lt;/span&gt;&lt;span pause&gt;&lt;/span&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div style=display:flex&gt;
+&lt;div&gt;
 &lt;h3&gt;&lt;span&gt;One in the compiler&lt;/span&gt;&lt;/h3&gt;
 &lt;ul&gt;
 &lt;li&gt;
@@ -2226,6 +2143,8 @@ slip.setClass(document.querySelector(&quot;#could_connect13&quot;), &quot;reveal
 &lt;/li&gt;
 &lt;/ul&gt;
 &lt;div pause&gt;&lt;/div&gt;
+&lt;/div&gt;
+&lt;div&gt;
 &lt;h3&gt;&lt;span&gt;One in merlin&lt;/span&gt;&lt;/h3&gt;
 &lt;ul&gt;
 &lt;li&gt;
@@ -2245,6 +2164,10 @@ slip.setClass(document.querySelector(&quot;#could_connect13&quot;), &quot;reveal
 &lt;span&gt;typer.&lt;/span&gt;&lt;/p&gt;
 &lt;/li&gt;
 &lt;/ul&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div&gt;
+&lt;div&gt;
 &lt;div pause&gt;&lt;/div&gt;
 &lt;p&gt;&lt;span&gt;Let's make a third one ! Leo White, who wrote the current implementation in Merlin came up with a new, &amp;quot;simpler&amp;quot;, design.&lt;/span&gt;&lt;/p&gt;
 &lt;h2 pause up-at-unpause&gt;&lt;span&gt;What's your solution?&lt;/span&gt;&lt;/h2&gt;
