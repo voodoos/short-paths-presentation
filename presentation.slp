@@ -265,15 +265,70 @@ slip.setClass(document.querySelector("#could_connect12"), "revealed-resuslts", t
 
 That concludes the talk.[]{pause}.. Wait how can we implement that?
 
-{up pause}
+{up=lets-use pause}
 ## An example with multiple compilation units
 
-{#first-code-block}
 {style=display:flex}
 ----
 
 {style=width:50%}
 ---
+```ocaml
+(* def.ml *)
+module X = struct
+  type t = A
+end
+```
+```ocaml
+(* user.ml *)
+let x = Def.X.A
+```
+```ocaml
+(* aliaser.ml *)
+type t = Def.X.t
+```
+{style="padding-left:30px"}
+---
+- `def.ml` defines a type inside a submodule {pause}
+
+- `user.ml` uses a value of the type.
+
+- `aliaser.ml` aliases it, independently. (and is in the load path) {pause}
+
+{.block pause}
+> How should the type of `x` in `user.ml` be printed?
+>
+> {carousel poll-element #could_connect14}
+> >
+> > `Def.X.t` [0]{.poll-result}
+> >
+> > ---
+> >
+> > `Aliaser.t` [0]{.poll-result}
+> >
+
+{exec}
+```slip-script
+slip.setClass(document.querySelector("#could_connect14"), "revealed-resuslts", true)
+```
+
+----
+
+{.block pause style=background-color:pink;font-size:1.2em #finding-all}
+Finding the "shortest path" requires to load ALL compilations units to look for an alias of our type.
+
+{focus="~margin:30 finding-all can-be-complex"}
+
+{pause unfocus up=finding-all}
+To **approximate** the shortest path, we need to decide what we load, using heuristics, starting from what is accessible.
+
+{style=display:flex}
+----
+
+{style=width:50%}
+---
+
+
 ```ocaml
 (* def.ml *)
 module T = struct
@@ -286,28 +341,25 @@ type t = Def.T.t
 ```
 ```ocaml
 (* lib.ml *)
-module X = struct module Y =
-  struct type t = Aliaser.t end end
+type t = Aliaser.t
 ```
 ```ocaml
 (* user.ml *)
-open Lib.X.Y
-let x = Def.T.A
+open Lib
+let x = Def.T.A (* Shortest type? *)
 ```
 {style="padding-left:30px"}
 ---
-- `def.ml` defines a type inside a submodule {pause}
+- `User` uses a value of type `Def.T.t`, but this time opens `Lib`
 
-- `aliaser.ml` aliases it without submodule {pause}
+- `Lib.t` aliases `Aliaser.t`,
 
-- `lib.ml` also aliases it in a deeper submodule {pause}
-
-- `user.ml` uses a value of the type, but never mentions `Aliaser` (but it is in the load path).
+- `Aliaser.t` aliases `Def.T.t`,
 
 {.block pause}
 > How should the type of `x` in `user.ml` be printed?
 >
-> {carousel poll-element #could_connect14}
+> {carousel poll-element #could_connect15}
 > >
 > > `Def.T.t` [0]{.poll-result}
 > >
@@ -316,21 +368,18 @@ let x = Def.T.A
 > > `t` [0]{.poll-result}
 > >
 
-{exec pause}
+{exec}
 ```slip-script
-slip.setClass(document.querySelector("#could_connect14"), "revealed-resuslts", true)
+slip.setClass(document.querySelector("#could_connect15"), "revealed-resuslts", true)
 ```
 
-Current short-paths implementation report `Def.T.t`...
+{pause}
+
+- The compiler currently uses `Def.T.t`!
 
 ----
 
-{.block up=first-code-block pause style=background-color:pink;font-size:1.2em #finding-all}
-Finding the "shortest path" naively would require to load ALL compilations units to look for aliases.
-
-{focus="~margin:30 finding-all can-be-complex"}
-
-{pause unfocus up=finding-all}
+{up pause}
 ## The history of printing approximately shortest paths
 
 There already exist two implementations of short-paths for OCaml! {pause}
@@ -370,7 +419,7 @@ Let's make a third one ! Leo White, who wrote the current implementation in Merl
 
 
 {pause up}
-## What's your solution?
+## Using the "Discourse"
 
 {pause}
 
