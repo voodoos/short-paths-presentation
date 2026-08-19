@@ -265,9 +265,10 @@ slip.setClass(document.querySelector("#could_connect12"), "revealed-resuslts", t
 
 That concludes the talk.[]{pause}.. Wait how can we implement that?
 
-{up=lets-use pause}
+{up pause}
 ## An example with multiple compilation units
 
+{#first-code-block}
 {style=display:flex}
 ----
 
@@ -275,17 +276,23 @@ That concludes the talk.[]{pause}.. Wait how can we implement that?
 ---
 ```ocaml
 (* def.ml *)
-module X = struct
+module T = struct
   type t = A
 end
 ```
 ```ocaml
 (* aliaser.ml *)
-type t = Def.X.t
+type t = Def.T.t
+```
+```ocaml
+(* lib.ml *)
+module X = struct module Y =
+  struct type t = Aliaser.t end end
 ```
 ```ocaml
 (* user.ml *)
-let x = Def.X.A
+open Lib.X.Y
+let x = Def.T.A
 ```
 {style="padding-left:30px"}
 ---
@@ -293,29 +300,33 @@ let x = Def.X.A
 
 - `aliaser.ml` aliases it without submodule {pause}
 
-- `user.ml` uses a value of the type, but never mentions `aliaser.ml` (but it is in the load path).
+- `lib.ml` also aliases it in a deeper submodule {pause}
+
+- `user.ml` uses a value of the type, but never mentions `Aliaser` (but it is in the load path).
 
 {.block pause}
 > How should the type of `x` in `user.ml` be printed?
 >
 > {carousel poll-element #could_connect14}
 > >
-> > `Def.X.t` [0]{.poll-result}
+> > `Def.T.t` [0]{.poll-result}
 > >
 > > ---
 > >
-> > `Aliaser.t` [0]{.poll-result}
+> > `t` [0]{.poll-result}
 > >
 
-{exec}
+{exec pause}
 ```slip-script
 slip.setClass(document.querySelector("#could_connect14"), "revealed-resuslts", true)
 ```
 
+Current short-paths implementation report `Def.T.t`...
+
 ----
 
-{.block pause style=background-color:pink;font-size:1.2em #finding-all}
-Finding the "shortest path" requires to load ALL compilations units to look for an alias of our type.
+{.block up=first-code-block pause style=background-color:pink;font-size:1.2em #finding-all}
+Finding the "shortest path" naively would require to load ALL compilations units to look for aliases.
 
 {focus="~margin:30 finding-all can-be-complex"}
 
