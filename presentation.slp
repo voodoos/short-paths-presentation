@@ -54,7 +54,7 @@ How to print OCaml paths (internal and fully-qualified), using the best possible
 ----
 
 ```ocaml
-type t = string
+type name = string
 
 let x = "Ocaml Workshop"
 ```
@@ -63,7 +63,7 @@ How should the type of `x` be printed?
 
 {carousel poll-element #could_connect2}
 >
-> `t` [0]{.poll-result}
+> `name` [0]{.poll-result}
 >
 > ---
 >
