@@ -248,7 +248,7 @@ slip.setClass(document.querySelector("#could_connect12"), "revealed-resuslts", t
 > {gui="~x:-3 ~y:84 ~w:961 ~h:185" #green-square .unrevealed}
 >
 > {style=position:relative;z-index:10}
-> - **Takeaway 0**: Can't be always good. {#tkw1}
+> - **Takeaway 0**: Can't please everyone. {#tkw1}
 >
 > - **Takeaway 1**: We don't want full qualification. {#tkw2}
 >
@@ -295,7 +295,7 @@ type t = Def.X.t
 
 - `aliaser.ml` aliases it, independently. (and is in the load path) {pause}
 
-{.block pause}
+{.block}
 > How should the type of `x` in `user.ml` be printed?
 >
 > {carousel poll-element #could_connect14}

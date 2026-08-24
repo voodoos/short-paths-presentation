@@ -31,7 +31,7 @@ type t = Foo of A.B.t | Bar
 ```
 
 ```ocaml
-let paul_elliot_is_an_ai : Import.t = Bar
+let ocaml_workshop : Import.t = Bar
 ```
 
 {draw=phase-2-d}
