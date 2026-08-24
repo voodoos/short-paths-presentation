@@ -245,16 +245,16 @@ slip.setClass(document.querySelector("#could_connect12"), "revealed-resuslts", t
 
 
 {.block #takeaways}
-> {gui="~x:-3 ~y:84 ~w:961 ~h:185" #green-square .unrevealed}
+> {gui="~x:-3 ~y:84 ~w:1150 ~h:185" #green-square .unrevealed}
 >
 > {style=position:relative;z-index:10}
 > - **Takeaway 0**: Can't please everyone. {#tkw1}
 >
 > - **Takeaway 1**: We don't want full qualification. {#tkw2}
 >
-> - **Takeaway 2**: We tend to prefer shorter paths. {#tkw3}
+> - **Takeaway 2**: We tend to prefer shorter paths. (ie. paths with fewer components) {#tkw3}
 >
-> - **Takeaway 3**: We want to avoid paths including hidden modules.  {#tkw4}
+> - **Takeaway 3**: We want to avoid paths including conventionally hidden modules.  {#tkw4}
 >
 > - [**Takeaway 5**: Codebases can be complex.]{#can-be-complex}
 
